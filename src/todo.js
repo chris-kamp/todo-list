@@ -1,4 +1,4 @@
-function Todo ({title, description, dueDate, category, project}) {
+function Todo(msg, {title, description, dueDate, category, project}) {
     
     title = title || "Untitled";
     description = description || "";
@@ -37,6 +37,7 @@ function Todo ({title, description, dueDate, category, project}) {
         project = arg;
     }
 
-
     return {getTitle, setTitle, getDescription, setDescription, getDueDate, setDueDate, getCategory, setCategory, getProject, setProject};
 }
+
+export default Todo;

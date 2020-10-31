@@ -1,4 +1,4 @@
-function Project({title, category, todos}) {
+function Project(msg, {title, category, todos}) {
     title = title || "Untitled";
     category = category || "";
     todos = todos || [];
@@ -22,6 +22,8 @@ function Project({title, category, todos}) {
         todos.push(todo);
         return todos;
     }
-
+    console.log("Made a Project");
     return {getTitle, setTitle, getCategory, setCategory, getTodos, addTodo};
 }
+
+export default Project;
