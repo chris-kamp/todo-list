@@ -36,7 +36,7 @@ function Todo(msg, {title, description, dueDate, category, project}) {
     function setProject(arg) {
         project = arg;
     }
-
+    console.log({title, description, dueDate, category, project});
     return {getTitle, setTitle, getDescription, setDescription, getDueDate, setDueDate, getCategory, setCategory, getProject, setProject};
 }
 

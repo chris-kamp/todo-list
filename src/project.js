@@ -22,7 +22,7 @@ function Project(msg, {title, category, todos}) {
         todos.push(todo);
         return todos;
     }
-    console.log("Made a Project");
+    console.log({title, category, todos});
     return {getTitle, setTitle, getCategory, setCategory, getTodos, addTodo};
 }
 
