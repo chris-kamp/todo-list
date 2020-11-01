@@ -1,4 +1,4 @@
-function Todo(msg, {title, description, dueDate, category, project}) {
+function Todo({title, description, dueDate, category, project}) {
     
     title = title || "Untitled";
     description = description || "";
@@ -40,4 +40,23 @@ function Todo(msg, {title, description, dueDate, category, project}) {
     return {getTitle, setTitle, getDescription, setDescription, getDueDate, setDueDate, getCategory, setCategory, getProject, setProject};
 }
 
-export default Todo;
+const TodoManager = (() => {
+    //An array of all existing todos
+    const todos = [];
+
+    //Get the array of todos
+    function getTodos() {
+        return todos;
+    }
+
+    //A subscriber function to create a todo when notified
+    function subscriber(msg, data) {
+        const todo = Todo(data);
+        todos.push(todo);
+        return todo;
+    }
+
+    return {subscriber, getTodos};
+})();
+
+export default TodoManager;

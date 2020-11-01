@@ -11,16 +11,16 @@ const DisplayController = (() => {
     const projectTitle = document.getElementById("projectTitle");
     const projectCategory = document.getElementById("projectCategory");
     const projectTodos = document.getElementById("projectTodos");
+    const addTodo = document.getElementById("addTodo");
+    const addProject = document.getElementById("addProject");
 
     //Initialise event listeners and elements on page load
     const initialise = () => {
-        const addTodo = document.getElementById("addTodo");
+
         addTodo.addEventListener("click", () => {
-            // PubSub.publish(EventHub.topics.ADD_TODO, EventHub.datasets.ADD_TODO);
             PubSub.publish(EventHub.topics.ADD_TODO, getTodoProperties());
         });
 
-        const addProject = document.getElementById("addProject");
         addProject.addEventListener("click", () => {
             PubSub.publish(EventHub.topics.ADD_PROJECT, getProjectProperties());
         });
