@@ -36,7 +36,8 @@ function Todo({title, description, dueDate, category, project}) {
     function setProject(arg) {
         project = arg;
     }
-    console.log({title, description, dueDate, category, project});
+    //Log the todo details for debugging
+    // console.log({title, description, dueDate, category, project});
     return {getTitle, setTitle, getDescription, setDescription, getDueDate, setDueDate, getCategory, setCategory, getProject, setProject};
 }
 
@@ -50,13 +51,13 @@ const TodoManager = (() => {
     }
 
     //A subscriber function to create a todo when notified
-    function subscriber(msg, data) {
+    function createTodo(msg, data) {
         const todo = Todo(data);
         todos.push(todo);
         return todo;
     }
 
-    return {subscriber, getTodos};
+    return {createTodo, getTodos};
 })();
 
 export default TodoManager;

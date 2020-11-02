@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+    <link href="style.css" rel="stylesheet" type="text/css">
     <head>
         <title>Todo List</title>
     </head>
@@ -10,11 +11,33 @@
         <input id="todoDescription" placeholder="Description"><br><br>
         <input id="todoDueDate" placeholder="Due date"><br><br>
         <input id="todoCategory" placeholder="Category"><br><br>
-        <input id="todoProject" placeholder="Project"><br><br>
+        <span>PROJECT: </span><select id="todoProject">
+        </select>    
+        <br><br>
         <button id="addProject">ADD PROJECT</button><br><br>
         <input id="projectTitle" placeholder="Title"><br><br>
         <input id="projectCategory" placeholder="Category"><br><br>
         <input id="projectTodos" placeholder="Todos"><br><br>
+
+        <!-- <div id="projectContainer">
+            <div class="project">
+                <div class="projectHeader">
+                    <span class="projectTitle">TITLE</span>
+                    <span class="projectCategory">CATEGORY</span>
+                </div>
+                <div class="todo">
+                    <div class="todoHeader">
+                        <p class="todoTitle">TODO TITLE</p>
+                        <p class="todoDescription">TODO DESCRIPTION</p>
+                        <p class="todoDueDate">TODO DUE DATE</p>
+                        <p class="todoCategory">TODO CATEGORY</p>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+
+
         <script src="main.js"></script>
     </body>
 </html>

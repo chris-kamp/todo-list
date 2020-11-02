@@ -1,3 +1,4 @@
+import DisplayController from "./displayController";
 import ProjectManager from "/src/project.js";
 import TodoManager from "/src/todo.js";
 
@@ -6,11 +7,14 @@ const EventHub = (() => {
     const topics = {};
     const tokens = {};
 
-    topics.ADD_TODO = "Add todo";
-    tokens.Todo = PubSub.subscribe(topics.ADD_TODO, TodoManager.subscriber);
+    topics.CREATE_TODO = "Create todo";
+    tokens.createTodo = PubSub.subscribe(topics.CREATE_TODO, TodoManager.createTodo);
 
-    topics.ADD_PROJECT = "Add project";
-    tokens.Project = PubSub.subscribe(topics.ADD_PROJECT, ProjectManager.subscriber);
+    topics.CREATE_PROJECT = "Create project";
+    tokens.createProject = PubSub.subscribe(topics.CREATE_PROJECT, ProjectManager.createProject);
+
+    topics.PUSH_PROJECT = "Push project";
+    tokens.pushToProjectList = PubSub.subscribe(topics.PUSH_PROJECT, DisplayController.pushToProjectList);
     
     return {topics, tokens};
 })();

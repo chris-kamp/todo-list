@@ -1,4 +1,5 @@
-import EventHub from "/src/eventHub.js"
+import EventHub from "/src/eventHub.js";
+import {clearChildren, create} from "/src/util.js";
 
 const DisplayController = (() => {
 
@@ -18,11 +19,11 @@ const DisplayController = (() => {
     const initialise = () => {
 
         addTodo.addEventListener("click", () => {
-            PubSub.publish(EventHub.topics.ADD_TODO, getTodoProperties());
+            PubSub.publish(EventHub.topics.CREATE_TODO, getTodoProperties());
         });
 
         addProject.addEventListener("click", () => {
-            PubSub.publish(EventHub.topics.ADD_PROJECT, getProjectProperties());
+            PubSub.publish(EventHub.topics.CREATE_PROJECT, getProjectProperties());
         });
     };
 
@@ -44,7 +45,16 @@ const DisplayController = (() => {
         }
     };
 
-    return {initialise};
+    const pushToProjectList = (msg, project) => {
+        create({
+            type: "option",
+            parent: todoProject,
+            textContent: project.getTitle(),
+            val: project.getTitle()
+        });
+    };
+
+    return {initialise, pushToProjectList};
 })();
 
 export default DisplayController;
