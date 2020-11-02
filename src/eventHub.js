@@ -15,6 +15,10 @@ const EventHub = (() => {
 
     topics.PUSH_PROJECT = "Push project";
     tokens.pushToProjectList = PubSub.subscribe(topics.PUSH_PROJECT, DisplayController.pushToProjectList);
+    tokens.displayProject = PubSub.subscribe(topics.PUSH_PROJECT, DisplayController.displayProject);
+
+    topics.PUSH_TODO = "Push todo";
+    tokens.displayTodo = PubSub.subscribe(topics.PUSH_TODO, DisplayController.displayTodo);
     
     return {topics, tokens};
 })();

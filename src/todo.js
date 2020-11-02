@@ -1,10 +1,12 @@
+import EventHub from "/src/eventHub.js";
+
 function Todo({title, description, dueDate, category, project}) {
     
     title = title || "Untitled";
-    description = description || "";
+    description = description || "No description"; //For testing, default should otherwise be blank
     dueDate = dueDate || false;
     category = category || false;
-    project = project || "Other"; //Replace with a generic "Other" project
+    project = project || false; //All Todos should have a project, so need error handling for this
 
     function getTitle() {
         return title;
@@ -54,6 +56,7 @@ const TodoManager = (() => {
     function createTodo(msg, data) {
         const todo = Todo(data);
         todos.push(todo);
+        PubSub.publish(EventHub.topics.PUSH_TODO, todo);
         return todo;
     }
 

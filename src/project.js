@@ -1,9 +1,10 @@
-import EventHub from "/src/eventHub.js"
+import EventHub from "/src/eventHub.js";
 
 function Project({title, category, todos}) {
     title = title || nameUntitled();
     category = category || false;
     todos = todos || [];
+    let displayElement;
 
     function getTitle() {
         return title;
@@ -23,6 +24,12 @@ function Project({title, category, todos}) {
     function addTodo(todo) {
         todos.push(todo);
         return todos;
+    }
+    function setDisplayElement(element) {
+        displayElement = element;
+    }
+    function getDisplayElement(element) {
+        return displayElement;
     }
 
     //If project title is a duplicate, throw error and return false
@@ -55,7 +62,7 @@ function Project({title, category, todos}) {
 
     //Log the project details for debugging
     // console.log({title, category, todos});
-    return {getTitle, setTitle, getCategory, setCategory, getTodos, addTodo};
+    return {getTitle, setTitle, getCategory, setCategory, getTodos, addTodo, setDisplayElement, getDisplayElement};
 }
 
 const ProjectManager = (() => {
@@ -67,9 +74,23 @@ const ProjectManager = (() => {
         return projects;
     }
 
+    //Find a project by title (exact match, assumes titles are unique)
+    function getProjectByTitle(title) {
+        for(const project of projects) {
+            if(project.getTitle() === title) {
+                return project;
+            }
+        }
+        return false;
+    }
+
     //Creates a new project and pushes it to the array when notified
     function createProject(msg, data) {
         const project = Project(data);
+        //Return false if project creation throws an error and returns false
+        if(project === false) {
+            return false;
+        }
         projects.push(project);
         PubSub.publish(EventHub.topics.PUSH_PROJECT, project);
         return project;
@@ -80,7 +101,7 @@ const ProjectManager = (() => {
         PubSub.publish(EventHub.topics.CREATE_PROJECT, {title: "Uncategorised"});
     }
     
-    return {createProject, getProjects, initialise};
+    return {createProject, getProjects, initialise, getProjectByTitle};
 })();
 
 
