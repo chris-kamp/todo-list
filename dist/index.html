@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <link href="style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="datepicker.min.css">
     <head>
         <title>Todo List</title>
     </head>
@@ -9,7 +10,11 @@
         <button id="addTodo">ADD TODO</button><br><br>
         <input id="todoTitle" placeholder="Title"><br><br>
         <input id="todoDescription" placeholder="Description"><br><br>
-        <input id="todoDueDate" placeholder="Due date"><br><br>
+        <span>DUE DATE: </span> 
+        <input type="text" id="todoDueDate"><br><br>
+        <!-- FOR TESTING -->
+        <button id="logDate">LOG DATE</button><br><br>
+
         <input id="todoCategory" placeholder="Category"><br><br>
         <span>PROJECT: </span>
         <select id="todoProject">
@@ -18,35 +23,8 @@
         <button id="addProject">ADD PROJECT</button><br><br>
         <input id="projectTitle" placeholder="Title"><br><br>
         <input id="projectCategory" placeholder="Category"><br><br>
-        <input id="projectTodos" placeholder="Todos"><br><br>
 
         <div id="projectContainer">
-            <div class="project" id="tempProjectID">
-                <div class="projectHeader">
-                    <div class="projectTitle">TITLE</span>
-                    <div class="projectCategory">CATEGORY</span>
-                </div>
-                <div class="todo">
-                    <div class="todoHeader">
-                        <p class="todoTitle">TODO TITLE</p>
-                        <p class="todoDescription">TODO DESCRIPTION</p>
-                    </div>
-                    <div class="todoBody">
-                        <p class="todoDueDate">TODO DUE DATE</p>
-                        <p class="todoCategory">TODO CATEGORY</p>
-                    </div>
-                </div>
-                <div class="todo">
-                    <div class="todoHeader">
-                        <p class="todoTitle">TODO TITLE</p>
-                        <p class="todoDescription">TODO DESCRIPTION</p>
-                    </div>
-                    <div class="todoBody">
-                        <p class="todoDueDate">TODO DUE DATE</p>
-                        <p class="todoCategory">TODO CATEGORY</p>
-                    </div>
-                </div>
-            </div>
         </div>
 
 

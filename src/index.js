@@ -8,3 +8,4 @@ PubSub.immediateExceptions = true;
 
 DisplayController.initialise();
 ProjectManager.initialise();
+

@@ -19,6 +19,8 @@ const EventHub = (() => {
 
     topics.PUSH_TODO = "Push todo";
     tokens.displayTodo = PubSub.subscribe(topics.PUSH_TODO, DisplayController.displayTodo);
+    //WIP
+    tokens.pushTodoToProject = PubSub.subscribe(topics.PUSH_TODO, ProjectManager.pushTodoToProject)
     
     return {topics, tokens};
 })();

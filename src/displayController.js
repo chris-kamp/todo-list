@@ -1,4 +1,5 @@
 import EventHub from "/src/eventHub.js";
+import datepicker from "js-datepicker";
 import {clearChildren, create} from "/src/util.js";
 import ProjectManager from "/src/project.js";
 
@@ -12,9 +13,9 @@ const DisplayController = (() => {
     const todoProject = document.getElementById("todoProject");
     const projectTitle = document.getElementById("projectTitle");
     const projectCategory = document.getElementById("projectCategory");
-    const projectTodos = document.getElementById("projectTodos");
     const addTodo = document.getElementById("addTodo");
     const addProject = document.getElementById("addProject");
+    const logDate = document.getElementById("logDate");
 
     //Initialise event listeners and elements on page load
     const initialise = () => {
@@ -25,6 +26,36 @@ const DisplayController = (() => {
 
         addProject.addEventListener("click", () => {
             PubSub.publish(EventHub.topics.CREATE_PROJECT, getProjectProperties());
+        });
+
+        //WIP FOR TESTING - Log the date in the Todo due date field
+        logDate.addEventListener("click", () => {
+            console.log(todoDueDate.value);
+        });
+
+        //FOR TESTING
+        const todoDueDatePicker = datepicker(todoDueDate, {
+            formatter: (input, date, instance) => {
+                const value = date.toLocaleDateString();
+                input.value = value;
+            },
+            startDay: 1,
+            minDate: new Date(),
+            dateSelected: new Date()
+        });
+
+        //Track whether mousedown occurred on due date input (to prevent hiding the date picker on mouseup)
+        let mouseDownDueDate = false; 
+        todoDueDate.addEventListener("mousedown", (e) => {
+            mouseDownDueDate = true;
+            console.log(mouseDownDueDate);
+        });
+        document.addEventListener("click", (e) => {
+            if(mouseDownDueDate) {
+                todoDueDatePicker['show']();
+            }
+            mouseDownDueDate = false;
+            console.log(mouseDownDueDate);
         });
     };
 

@@ -39,9 +39,9 @@ function Project({title, category, todos}) {
     }
 
     //Check for projects with duplicate titles
-    function checkDuplicates(inputTitle) {
+    function checkDuplicates(title) {
         for (const project of ProjectManager.getProjects()) {
-            if(inputTitle === project.getTitle()) {
+            if(title === project.getTitle()) {
                 return true;
             }
         }
@@ -96,12 +96,17 @@ const ProjectManager = (() => {
         return project;
     }
 
+    //When notified that a todo has been created, push it to the relevant project
+    function pushTodoToProject(msg, todo) {
+        todo.getProject().addTodo(todo);
+    }
+
     //Initialise a default project for uncategorised todos
     function initialise() {
         PubSub.publish(EventHub.topics.CREATE_PROJECT, {title: "Uncategorised"});
     }
     
-    return {createProject, getProjects, initialise, getProjectByTitle};
+    return {createProject, getProjects, initialise, getProjectByTitle, pushTodoToProject};
 })();
 
 
