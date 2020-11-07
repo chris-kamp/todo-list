@@ -33,7 +33,7 @@ const DisplayController = (() => {
             console.log(todoDueDate.value);
         });
 
-        //FOR TESTING
+        //Establish due date input as datepicker
         const todoDueDatePicker = datepicker(todoDueDate, {
             formatter: (input, date, instance) => {
                 const value = date.toLocaleDateString();
@@ -48,16 +48,39 @@ const DisplayController = (() => {
         let mouseDownDueDate = false; 
         todoDueDate.addEventListener("mousedown", (e) => {
             mouseDownDueDate = true;
-            console.log(mouseDownDueDate);
         });
         document.addEventListener("click", (e) => {
             if(mouseDownDueDate) {
                 todoDueDatePicker['show']();
             }
             mouseDownDueDate = false;
-            console.log(mouseDownDueDate);
         });
     };
+
+    //Manage due date picker text input
+    const validDateInput = ["0","1","2","3","4","5","6","7","8","9"];
+    //Disallow invalid inputs
+    todoDueDate.addEventListener("input", (e) => {
+        console.log(todoDueDate.value);
+        const input = e.data;
+        //Exit if data is null or not of length 1 (eg. if pasted)
+        if(!input || input.length !== 1) {
+            return false;
+        }
+        const priorValue = todoDueDate.value.slice(0, -1);
+        if(validDateInput.indexOf(input) === -1) {
+            todoDueDate.value = priorValue;
+            console.log("Invalid");
+        }
+    });
+    //Disallow pasting in text
+    todoDueDate.addEventListener("paste", (e) => {
+        e.preventDefault();
+    });
+    //Disallow drag-and-dropping in text
+    todoDueDate.addEventListener("drop", (e) => {
+        e.preventDefault();
+    });
 
     //Get the properties of a todo to be created from inputs on the page
     const getTodoProperties = () => {
