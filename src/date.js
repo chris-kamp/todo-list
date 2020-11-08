@@ -12,12 +12,13 @@ function validateDateInput(dateInput) {
 }
 
 //Validate a date string
-function validateDate(dateStr) {
+function validateDate({dateStr, allowPartial}) {
     // console.log(dateStr.split("/"));
     const dateArray = dateStr.split("/");
     const yearStr = dateArray[2];
     const monthStr = dateArray[1];
     const dayStr = dateArray[0];
+    let outputDate;
     if(dateArray.length > 3) {
         return false;
     } else {
@@ -48,15 +49,18 @@ function validateDate(dateStr) {
         const year = Number(yearStr);
         const month = Number(monthStr) - 1; //Months are zero-indexed
         const day = Number(dayStr);
-        const date = new Date(year, month, day);
+        outputDate = new Date(year, month, day);
         const now = new Date();
         now.setHours(0,0,0,0);
-        if(date < now) {
+        if(outputDate < now) {
             //console.log("Date is in the past");
             return false;
-        }
+        } 
+    } else if(!allowPartial) {
+        //If input not valid and complete, and partial dates are not allowed, return false
+        return false;
     }
-    return true;
+    return outputDate;
 }
 
 //Validate a day of the month (allowing for partial input)

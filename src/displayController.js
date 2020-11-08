@@ -56,33 +56,44 @@ const DisplayController = (() => {
             }
             mouseDownDueDate = false;
         });
+
+        //Disallow invalid date inputs
+        todoDueDate.addEventListener("beforeinput", (e) => {
+            if(e.data === null || e.data === "") {
+                return false;
+            }
+            //New value, after adding input and removing any selected text
+            const pre = e.target.value.slice(0, e.target.selectionStart);
+            const input = e.data;
+            const post = e.target.value.slice(e.target.selectionEnd);
+            const dateValue = pre + input + post;
+            //Prevent input of invalid characters or where length would exceed 10 (dd/mm/yyyy)
+            if(!validateDateInput(e.data) || dateValue.length > 10) {
+                e.preventDefault();
+            }
+        });
+
+        todoDueDate.addEventListener("input", (e) => {
+            if(validateDate({
+                dateStr: e.target.value,
+                allowPartial: true
+            }) === false){
+                console.log("Please enter a valid date");
+            } 
+            const date = validateDate({
+                dateStr: e.target.value,
+                allowPartial: false
+            })
+            if(date){
+                todoDueDatePicker.navigate(date);
+                todoDueDatePicker.setDate(date);
+            }
+        });
+
     };
 
 
-    //Disallow invalid date inputs
-    todoDueDate.addEventListener("beforeinput", (e) => {
-        if(e.data === null || e.data === "") {
-            return false;
-        }
-        //New value, after adding input and removing any selected text
-        const pre = e.target.value.slice(0, e.target.selectionStart);
-        const input = e.data;
-        const post = e.target.value.slice(e.target.selectionEnd);
-        const dateValue = pre + input + post;
-        //Prevent input of invalid characters or where length would exceed 10 (dd/mm/yyyy)
-        if(!validateDateInput(e.data) || dateValue.length > 10) {
-            e.preventDefault();
-        }
-    });
 
-    todoDueDate.addEventListener("input", (e) => {
-        if(!validateDate(e.target.value)){
-            console.log("Please enter a valid date");
-        } 
-        // else {
-        //     console.log("Entered date is valid!");
-        // }
-    })
     //Get the properties of a todo to be created from inputs on the page
     const getTodoProperties = () => {
         return {
