@@ -2,6 +2,7 @@ import EventHub from "/src/eventHub.js";
 import datepicker from "js-datepicker";
 import {clearChildren, create} from "/src/util.js";
 import ProjectManager from "/src/project.js";
+import {validateDate, validateDateInput} from "/src/date.js";
 
 const DisplayController = (() => {
 
@@ -57,31 +58,31 @@ const DisplayController = (() => {
         });
     };
 
-    //Manage due date picker text input
-    const validDateInput = ["0","1","2","3","4","5","6","7","8","9"];
-    //Disallow invalid inputs
-    todoDueDate.addEventListener("input", (e) => {
-        console.log(todoDueDate.value);
-        const input = e.data;
-        //Exit if data is null or not of length 1 (eg. if pasted)
-        if(!input || input.length !== 1) {
+
+    //Disallow invalid date inputs
+    todoDueDate.addEventListener("beforeinput", (e) => {
+        if(e.data === null || e.data === "") {
             return false;
         }
-        const priorValue = todoDueDate.value.slice(0, -1);
-        if(validDateInput.indexOf(input) === -1) {
-            todoDueDate.value = priorValue;
-            console.log("Invalid");
+        //New value, after adding input and removing any selected text
+        const pre = e.target.value.slice(0, e.target.selectionStart);
+        const input = e.data;
+        const post = e.target.value.slice(e.target.selectionEnd);
+        const dateValue = pre + input + post;
+        //Prevent input of invalid characters or where length would exceed 10 (dd/mm/yyyy)
+        if(!validateDateInput(e.data) || dateValue.length > 10) {
+            e.preventDefault();
         }
     });
-    //Disallow pasting in text
-    todoDueDate.addEventListener("paste", (e) => {
-        e.preventDefault();
-    });
-    //Disallow drag-and-dropping in text
-    todoDueDate.addEventListener("drop", (e) => {
-        e.preventDefault();
-    });
 
+    todoDueDate.addEventListener("input", (e) => {
+        if(!validateDate(e.target.value)){
+            console.log("Please enter a valid date");
+        } 
+        // else {
+        //     console.log("Entered date is valid!");
+        // }
+    })
     //Get the properties of a todo to be created from inputs on the page
     const getTodoProperties = () => {
         return {
