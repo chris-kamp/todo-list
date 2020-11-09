@@ -92,7 +92,7 @@ const ProjectManager = (() => {
             return false;
         }
         projects.push(project);
-        PubSub.publish(EventHub.topics.PUSH_PROJECT, project);
+        PubSub.publish(EventHub.topics.PROJECT_CREATED, project);
         return project;
     }
 
@@ -103,7 +103,7 @@ const ProjectManager = (() => {
 
     //Initialise a default project for uncategorised todos
     function initialise() {
-        PubSub.publish(EventHub.topics.CREATE_PROJECT, {title: "Uncategorised"});
+        PubSub.publish(EventHub.topics.PROJECT_CREATION_REQUESTED, {title: "Uncategorised"});
     }
     
     return {createProject, getProjects, initialise, getProjectByTitle, pushTodoToProject};

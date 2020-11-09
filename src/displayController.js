@@ -2,7 +2,7 @@ import EventHub from "/src/eventHub.js";
 import datepicker from "js-datepicker";
 import {clearChildren, create} from "/src/util.js";
 import ProjectManager from "/src/project.js";
-import {validateDate, validateDateInput} from "/src/date.js";
+import {validateDate, validateDateInput} from "/src/validation.js";
 
 const DisplayController = (() => {
 
@@ -22,11 +22,11 @@ const DisplayController = (() => {
     const initialise = () => {
 
         addTodo.addEventListener("click", () => {
-            PubSub.publish(EventHub.topics.CREATE_TODO, getTodoProperties());
+            PubSub.publish(EventHub.topics.TODO_CREATION_REQUESTED, getTodoProperties());
         });
 
         addProject.addEventListener("click", () => {
-            PubSub.publish(EventHub.topics.CREATE_PROJECT, getProjectProperties());
+            PubSub.publish(EventHub.topics.PROJECT_CREATION_REQUESTED, getProjectProperties());
         });
 
         //WIP FOR TESTING - Log the date in the Todo due date field
@@ -109,8 +109,7 @@ const DisplayController = (() => {
     const getProjectProperties = () => {
         return {
             title: projectTitle.value,
-            category: projectCategory.value,
-            todos: projectTodos.value
+            category: projectCategory.value
         }
     };
 

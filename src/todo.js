@@ -40,13 +40,11 @@ function Todo({title, description, dueDate, category, project}) {
     }
 
     //If todo title is a duplicate within the same project, throw error and return false
-    //WIP
     if(checkDuplicates(title)) {
         console.log("Error! A Todo of that name already exists within the same project.");
         return false;
     }
 
-    //WIP
     //Check for todos with duplicate titles within the same project
     function checkDuplicates(title) {
         const todos = project.getTodos();
@@ -79,7 +77,7 @@ const TodoManager = (() => {
             return false;
         }
         todos.push(todo);
-        PubSub.publish(EventHub.topics.PUSH_TODO, todo);
+        PubSub.publish(EventHub.topics.TODO_CREATED, todo);
         return todo;
     }
 
