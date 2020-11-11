@@ -1,8 +1,7 @@
 import EventHub from "/src/eventHub.js";
 
-function Project({title, category, todos}) {
+function Project({title, todos}) {
     title = title || nameUntitled();
-    category = category || false;
     todos = todos || [];
     let displayElement;
 
@@ -11,12 +10,6 @@ function Project({title, category, todos}) {
     }
     function setTitle(arg) {
         title = arg;
-    }
-    function getCategory() {
-        return category;
-    }
-    function setCategory(arg) {
-        category = arg;
     }
     function getTodos() {
         return todos;
@@ -61,8 +54,8 @@ function Project({title, category, todos}) {
     }
 
     //Log the project details for debugging
-    // console.log({title, category, todos});
-    return {getTitle, setTitle, getCategory, setCategory, getTodos, addTodo, setDisplayElement, getDisplayElement};
+    // console.log({title, todos});
+    return {getTitle, setTitle, getTodos, addTodo, setDisplayElement, getDisplayElement};
 }
 
 const ProjectManager = (() => {

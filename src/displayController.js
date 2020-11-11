@@ -10,10 +10,9 @@ const DisplayController = (() => {
     const todoTitle = document.getElementById("todoTitle");
     const todoDescription = document.getElementById("todoDescription");
     const todoDueDate = document.getElementById("todoDueDate");
-    const todoCategory = document.getElementById("todoCategory");
+    const todoPriority = document.getElementById("todoPriority");
     const todoProject = document.getElementById("todoProject");
     const projectTitle = document.getElementById("projectTitle");
-    const projectCategory = document.getElementById("projectCategory");
     const addTodo = document.getElementById("addTodo");
     const addProject = document.getElementById("addProject");
     const logDate = document.getElementById("logDate");
@@ -100,7 +99,7 @@ const DisplayController = (() => {
             title: todoTitle.value,
             description: todoDescription.value,
             dueDate: todoDueDate.value,
-            category: todoCategory.value,
+            priority: todoPriority.value,
             project: ProjectManager.getProjectByTitle(todoProject.value)
         }
     };
@@ -108,8 +107,7 @@ const DisplayController = (() => {
     //Get the properties of a project to be created from inputs on the page
     const getProjectProperties = () => {
         return {
-            title: projectTitle.value,
-            category: projectCategory.value
+            title: projectTitle.value
         }
     };
 
@@ -160,10 +158,10 @@ const DisplayController = (() => {
             textContent: `Due date: ${todo.getDueDateFormatted()}`,
             parent: todoBody
         });
-        const todoCategory = create({
+        const todoPriority = create({
             type: "p",
-            cl: "todoCategory",
-            textContent: `Category: ${todo.getCategory()}`,
+            cl: "todoPriority",
+            textContent: `Priority: ${todo.getPriority()}`,
             parent: todoBody
         });
     }
@@ -186,12 +184,6 @@ const DisplayController = (() => {
             type: "div",
             cl: "projectTitle",
             textContent: `TITLE: ${project.getTitle()}`,
-            parent: projectHeader
-        });
-        const projectCategory = create({
-            type: "div",
-            cl: "projectCategory",
-            textContent: `CATEGORY: ${project.getCategory()}`,
             parent: projectHeader
         });
         //Link the element to its corresponding project

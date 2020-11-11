@@ -1,12 +1,12 @@
 import EventHub from "/src/eventHub.js";
 import format from 'date-fns/format';
 
-function Todo({title, description, dueDate, category, project}) {
+function Todo({title, description, dueDate, priority, project}) {
     
     title = title || "Untitled";
     description = description || "No description"; //For testing, default should otherwise be blank
     dueDate = dueDate || false;
-    category = category || false;
+    priority = priority || false;
     project = project || false; //All Todos should have a project, so need error handling for this
 
     function getTitle() {
@@ -30,11 +30,11 @@ function Todo({title, description, dueDate, category, project}) {
     function setDueDate(arg) {
         dueDate = arg;
     }
-    function getCategory() {
-        return category;
+    function getPriority() {
+        return priority;
     }
-    function setCategory(arg) {
-        category = arg;
+    function setPriority(arg) {
+        priority = arg;
     }
     function getProject() {
         return project;
@@ -61,8 +61,8 @@ function Todo({title, description, dueDate, category, project}) {
     }
 
     //Log the todo details for debugging
-    // console.log({title, description, dueDate, category, project});
-    return {getTitle, setTitle, getDescription, setDescription, getDueDate, getDueDateFormatted, setDueDate, getCategory, setCategory, getProject, setProject};
+    // console.log({title, description, dueDate, priority, project});
+    return {getTitle, setTitle, getDescription, setDescription, getDueDate, getDueDateFormatted, setDueDate, getPriority, setPriority, getProject, setProject};
 }
 
 const TodoManager = (() => {
