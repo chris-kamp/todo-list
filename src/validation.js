@@ -1,3 +1,5 @@
+import EventHub from "/src/eventHub.js";
+
 //Regex for any non-digit
 const nonDigit = /\D/;
 const invalidInput = /[^\d\/]/;
@@ -128,4 +130,17 @@ function validateYear(year) {
     return true;
 }
 
-export {validateDate, validateDateInput};
+//Validate the properties of a Todo
+//WIP: This should take the properties of a todo when creation request published, validate the date, validate anything else required, and publish success (along with the validated properties) or failure to trigger actual creation of the todo
+function validateTodo(msg, {title, description, dueDate, category, project}) {
+    dueDate = validateDate({dateStr: dueDate, allowPartial: false});
+    if(dueDate === false) {
+        console.log("Failed to validate todo due date. Please enter a valid due date (dd/mm/yyyy).");
+        return false;
+    } else {
+        //WIP: Allow for other formats
+        PubSub.publish(EventHub.topics.TODO_VALIDATED, {title, description, dueDate, category, project});
+    }
+}
+
+export {validateDate, validateDateInput, validateTodo};

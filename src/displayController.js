@@ -157,7 +157,7 @@ const DisplayController = (() => {
         const todoDueDate = create({
             type: "p",
             cl: "todoDueDate",
-            textContent: `Due date: ${todo.getDueDate()}`,
+            textContent: `Due date: ${todo.getDueDateFormatted()}`,
             parent: todoBody
         });
         const todoCategory = create({

@@ -1,4 +1,5 @@
 import EventHub from "/src/eventHub.js";
+import format from 'date-fns/format';
 
 function Todo({title, description, dueDate, category, project}) {
     
@@ -22,6 +23,9 @@ function Todo({title, description, dueDate, category, project}) {
     }
     function getDueDate() {
         return dueDate;
+    }
+    function getDueDateFormatted() {
+        return format(dueDate, "d MMMM yyyy");
     }
     function setDueDate(arg) {
         dueDate = arg;
@@ -58,7 +62,7 @@ function Todo({title, description, dueDate, category, project}) {
 
     //Log the todo details for debugging
     // console.log({title, description, dueDate, category, project});
-    return {getTitle, setTitle, getDescription, setDescription, getDueDate, setDueDate, getCategory, setCategory, getProject, setProject};
+    return {getTitle, setTitle, getDescription, setDescription, getDueDate, getDueDateFormatted, setDueDate, getCategory, setCategory, getProject, setProject};
 }
 
 const TodoManager = (() => {
