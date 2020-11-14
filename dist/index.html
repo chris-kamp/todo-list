@@ -6,29 +6,40 @@
         <title>Todo List</title>
     </head>
     <body>
-        <br>
-        <button id="addTodo">ADD TODO</button><br><br>
-        <input id="todoTitle" placeholder="Title"><br><br>
-        <input id="todoDescription" placeholder="Description"><br><br>
-        <span>DUE DATE: </span> 
-        <input type="text" id="todoDueDate"><br><br>
-        <!-- FOR TESTING -->
-        <button id="logDate">LOG DATE</button><br><br>
-        <select id="todoPriority">
-            <option value="high">High</option>
-            <option value="normal" selected="selected">Normal</option>
-            <option value="low">Low</option>
-        </select>
-        <br><br>
-        <span>PROJECT: </span>
-        <select id="todoProject">
-        </select>    
-        <br><br>
-        <button id="addProject">ADD PROJECT</button><br><br>
-        <input id="projectTitle" placeholder="Title"><br><br>
+        <header id="pageHeader">
 
-        <div id="projectContainer">
-        </div>
+        </header>
+        <main>
+            <div id="mainContainer">
+                <div id="sidebar">
+
+                </div>
+                <div id="mainContent">
+                    <button id="addTodo">ADD TODO</button><br><br>
+                    <input id="todoTitle" placeholder="Title"><br><br>
+                    <input id="todoDescription" placeholder="Description"><br><br>
+                    <span>DUE DATE: </span> 
+                    <input type="text" id="todoDueDate"><br><br>
+                    <span>PRIORITY: </span><select id="todoPriority">
+                        <option value="high">High</option>
+                        <option value="normal" selected="selected">Normal</option>
+                        <option value="low">Low</option>
+                    </select>
+                    <br><br>
+                    <span>PROJECT: </span>
+                    <select id="todoProject">
+                    </select>    
+                    <br><br>
+                    <button id="addProject">ADD PROJECT</button><br><br>
+                    <input id="projectTitle" placeholder="Title"><br><br>
+            
+                    <div id="projectContainer">
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
 
 
 

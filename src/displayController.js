@@ -15,7 +15,6 @@ const DisplayController = (() => {
     const projectTitle = document.getElementById("projectTitle");
     const addTodo = document.getElementById("addTodo");
     const addProject = document.getElementById("addProject");
-    const logDate = document.getElementById("logDate");
 
     //Initialise event listeners and elements on page load
     const initialise = () => {
@@ -26,11 +25,6 @@ const DisplayController = (() => {
 
         addProject.addEventListener("click", () => {
             PubSub.publish(EventHub.topics.PROJECT_CREATION_REQUESTED, getProjectProperties());
-        });
-
-        //WIP FOR TESTING - Log the date in the Todo due date field
-        logDate.addEventListener("click", () => {
-            console.log(todoDueDate.value);
         });
 
         //Establish due date input as datepicker
