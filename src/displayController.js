@@ -1,34 +1,34 @@
+import $ from "jquery";
 import EventHub from "/src/eventHub.js";
 import datepicker from "js-datepicker";
-import {clearChildren, create} from "/src/util.js";
 import ProjectManager from "/src/project.js";
 import {validateDate, validateDateInput} from "/src/validation.js";
 
 const DisplayController = (() => {
 
     //Store references to relevant elements
-    const todoTitle = document.getElementById("todoTitle");
-    const todoDescription = document.getElementById("todoDescription");
-    const todoDueDate = document.getElementById("todoDueDate");
-    const todoPriority = document.getElementById("todoPriority");
-    const todoProject = document.getElementById("todoProject");
-    const projectTitle = document.getElementById("projectTitle");
-    const addTodo = document.getElementById("addTodo");
-    const addProject = document.getElementById("addProject");
+    const todoTitle = $("#todoTitle");
+    const todoDescription = $("#todoDescription");
+    const todoDueDate = $("#todoDueDate");
+    const todoPriority = $("#todoPriority");
+    const todoProject = $("#todoProject");
+    const projectTitle = $("#projectTitle");
+    const addTodo = $("#addTodo");
+    const addProject = $("#addProject");
 
     //Initialise event listeners and elements on page load
     const initialise = () => {
 
-        addTodo.addEventListener("click", () => {
+        addTodo.on("click", () => {
             PubSub.publish(EventHub.topics.TODO_CREATION_REQUESTED, getTodoProperties());
         });
 
-        addProject.addEventListener("click", () => {
+        addProject.on("click", () => {
             PubSub.publish(EventHub.topics.PROJECT_CREATION_REQUESTED, getProjectProperties());
         });
 
         //Establish due date input as datepicker
-        const todoDueDatePicker = datepicker(todoDueDate, {
+        const todoDueDatePicker = datepicker(todoDueDate[0], {
             formatter: (input, date, instance) => {
                 const value = date.toLocaleDateString();
                 input.value = value;
@@ -40,10 +40,10 @@ const DisplayController = (() => {
 
         //Track whether mousedown occurred on due date input (to prevent hiding the date picker on mouseup)
         let mouseDownDueDate = false; 
-        todoDueDate.addEventListener("mousedown", (e) => {
+        todoDueDate.on("mousedown", () => {
             mouseDownDueDate = true;
         });
-        document.addEventListener("click", (e) => {
+        document.addEventListener("click", () => {
             if(mouseDownDueDate) {
                 todoDueDatePicker['show']();
             }
@@ -51,30 +51,31 @@ const DisplayController = (() => {
         });
 
         //Disallow invalid date inputs
-        todoDueDate.addEventListener("beforeinput", (e) => {
-            if(e.data === null || e.data === "") {
-                return false;
+        todoDueDate.on("beforeinput", (event) => {
+            console.log(event.originalEvent.data);
+            if(event.originalEvent.data === null || event.originalEvent.data === "") {
+                return;
             }
             //New value, after adding input and removing any selected text
-            const pre = e.target.value.slice(0, e.target.selectionStart);
-            const input = e.data;
-            const post = e.target.value.slice(e.target.selectionEnd);
+            const pre = event.target.value.slice(0, event.target.selectionStart);
+            const input = event.originalEvent.data;
+            const post = event.target.value.slice(event.target.selectionEnd);
             const dateValue = pre + input + post;
             //Prevent input of invalid characters or where length would exceed 10 (dd/mm/yyyy)
-            if(!validateDateInput(e.data) || dateValue.length > 10) {
-                e.preventDefault();
+            if(!validateDateInput(event.originalEvent.data) || dateValue.length > 10) {
+                event.preventDefault();
             }
         });
 
-        todoDueDate.addEventListener("input", (e) => {
+        todoDueDate.on("input", (event) => {
             if(validateDate({
-                dateStr: e.target.value,
+                dateStr: event.target.value,
                 allowPartial: true
             }) === false){
                 console.log("Please enter a valid date");
             } 
             const date = validateDate({
-                dateStr: e.target.value,
+                dateStr: event.target.value,
                 allowPartial: false
             })
             if(date){
@@ -90,96 +91,67 @@ const DisplayController = (() => {
     //Get the properties of a todo to be created from inputs on the page
     const getTodoProperties = () => {
         return {
-            title: todoTitle.value,
-            description: todoDescription.value,
-            dueDate: todoDueDate.value,
-            priority: todoPriority.value,
-            project: ProjectManager.getProjectByTitle(todoProject.value)
+            title: todoTitle.val(),
+            description: todoDescription.val(),
+            dueDate: todoDueDate.val(),
+            priority: todoPriority.val(),
+            project: ProjectManager.getProjectByTitle(todoProject.val())
         }
+        
     };
 
     //Get the properties of a project to be created from inputs on the page
     const getProjectProperties = () => {
         return {
-            title: projectTitle.value
+            title: projectTitle.val()
         }
     };
 
     //Push a project to the selection dropdown list
     const pushToProjectList = (msg, project) => {
-        create({
-            type: "option",
-            parent: todoProject,
-            textContent: project.getTitle(),
-            val: project.getTitle()
-        });
+        $(`<option value="${project.getTitle()}">${project.getTitle()}</option>`).appendTo(todoProject);
     };
 
     //Display a created todo on the page
     function displayTodo(msg, todo) {
-        //For testing only. Need to get a reference to the correct element for a Todo's project.
         const parentProject = todo.getProject().getDisplayElement();
-        const todoElement = create({
-            type: "div",
-            cl: "todo",
-            parent: parentProject
-        });
-        const todoHeader = create({
-            type: "div",
-            cl: "todoHeader",
-            parent: todoElement
-        });
-        const todoTitle = create({
-            type: "p",
-            cl: "todoTitle",
-            textContent: `Title: ${todo.getTitle()}`,
-            parent: todoHeader
-        });
-        const todoDescription = create({
-            type: "p",
-            cl: "todoDescription",
-            textContent: `Description: ${todo.getDescription()}`,
-            parent: todoHeader
-        });
-        const todoBody = create({
-            type: "div",
-            cl: "todoBody",
-            parent: todoElement
-        });
-        const todoDueDate = create({
-            type: "p",
-            cl: "todoDueDate",
-            textContent: `Due date: ${todo.getDueDateFormatted()}`,
-            parent: todoBody
-        });
-        const todoPriority = create({
-            type: "p",
-            cl: "todoPriority",
-            textContent: `Priority: ${todo.getPriority()}`,
-            parent: todoBody
-        });
+
+        const todoElement = $(`<div class="todo"></div>`);
+        todoElement.appendTo(parentProject);
+
+        const todoHeader = $(`<div class="todoHeader"></div>`);
+        todoHeader.appendTo(todoElement);
+
+        const todoTitle = $(`<p class="todoTitle">Title: ${todo.getTitle()}</p>`);
+        todoTitle.appendTo(todoHeader);
+
+        const todoDescription = $(`<p class='todoDescription'> Description: ${todo.getDescription()}</p>`);
+        todoDescription.appendTo(todoHeader);
+
+        const todoBody = $(`<div class="todoBody"></div>`);
+        todoBody.appendTo(todoElement);
+        
+        const todoDueDate = $(`<p class="todoDueDate">Due date: ${todo.getDueDateFormatted()}</p>`);
+        todoDueDate.appendTo(todoBody);
+
+        const todoPriority = $(`<p class="todoPriority">Priority: ${todo.getPriority()}</p>`);
+        todoPriority.appendTo(todoBody);
     }
 
     //Display a created project on the page
     function displayProject(msg, project) {
         //Move this is projectContainer is to be kept permanently
-        const projectContainer = document.getElementById("projectContainer");
-        const projectElement = create({
-            type: "div",
-            cl: "project",
-            parent: projectContainer
-        });
-        const projectHeader = create({
-            type: "div",
-            cl: "projectHeader",
-            parent: projectElement
-        });
-        const projectTitle = create({
-            type: "div",
-            cl: "projectTitle",
-            textContent: `TITLE: ${project.getTitle()}`,
-            parent: projectHeader
-        });
+        const projectContainer = $("#projectContainer");
+
+        const projectElement = $(`<div class="project"></div>`);
+        projectElement.appendTo(projectContainer);
+
+        const projectHeader = $(`<div class="projectHeader"></div>`);
+        projectHeader.appendTo(projectElement);
+
+        const projectTitle = $(`<div class="projectTitle">TITLE: ${project.getTitle()}</div>`);
+        projectTitle.appendTo(projectHeader);
+
         //Link the element to its corresponding project
         project.setDisplayElement(projectElement);
     }
