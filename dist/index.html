@@ -7,35 +7,51 @@
     </head>
     <body>
         <header id="pageHeader">
-
+            <h1 id="mainHeading">TODO</h1>
         </header>
         <main>
             <div id="mainContainer">
                 <div id="sidebar">
-
                 </div>
                 <div id="mainContent">
-                    <button id="addTodo">ADD TODO</button><br><br>
-                    <input id="todoTitle" placeholder="Title"><br><br>
-                    <input id="todoDescription" placeholder="Description"><br><br>
-                    <span>DUE DATE: </span> 
-                    <input type="text" id="todoDueDate"><br><br>
-                    <span>PRIORITY: </span><select id="todoPriority">
-                        <option value="high">High</option>
-                        <option value="normal" selected="selected">Normal</option>
-                        <option value="low">Low</option>
-                    </select>
-                    <br><br>
-                    <span>PROJECT: </span>
-                    <select id="todoProject">
-                    </select>    
-                    <br><br>
-                    <button id="addProject">ADD PROJECT</button><br><br>
-                    <input id="projectTitle" placeholder="Title"><br><br>
-            
-                    <div id="projectContainer">
+                    
+
+                    
+                    <div id="createTodoPopup">
+                        <div id="todoPopupHeading">
+                            <p>CREATE TODO</p>
+                        </div>
+                        <div id="todoPopupL1">
+                            <span>TITLE:</span>
+                            <input id="todoTitleInput" placeholder="Title">
+                        </div>
+                        <div id="todoPopupL2">
+                            <span>PROJECT: </span>
+                            <select id="todoProject"></select>
+                        </div>
+                        <div id="todoPopupL3">
+                            <span>DUE DATE: </span> 
+                            <input type="text" id="todoDueDate">
+                        </div>
+                        <div id="todoPopupL4">
+                            <span>PRIORITY: </span><select id="todoPriority">
+                                <option value="high">High</option>
+                                <option value="normal" selected="selected">Normal</option>
+                                <option value="low">Low</option>
+                            </select>
+                        </div>
+                        <div id="todoPopupL5">
+                            <span>DESCRIPTION:</span>
+                            <input id="todoDescription" placeholder="Description">
+                        </div>
+                        <div id="todoPopupL6">
+                            <button id="addTodo">CREATE</button>    
+                            <button id="addTodo">CANCEL</button>    
+                        </div>
+
                     </div>
                 </div>
+                
 
             </div>
         </main>

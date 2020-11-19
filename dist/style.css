@@ -2,19 +2,30 @@ body {
     margin: 0;
 }
 
-#projectContainer {
+#projectsHeading {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
 
+#projectTitleInput {
+    margin: 0 2px 0 2px;
+    border-radius: 5px;
+    border: solid 1px;
+    font-size: 16px;
+    padding-left: 10px;
 }
 
 #mainContainer {
     background-color: rgb(153, 207, 153);
     height: 90vh;
-    background-color: brown;
+    /* background-color: brown; */
     display: flex;
+    position: relative;
 }
 
 #sidebar {
-    width: 10vw;
+    width: 15vw;
     height: 90vh;
     border-right: solid 1px;
     box-sizing: border-box;
@@ -23,8 +34,72 @@ body {
 
 #mainContent {
     background-color: rgb(189, 189, 108);
-    width: 90vw;
+    width: 85vw;
     padding: 10px 0 0 10px;
+}
+
+#createTodoPopup {
+    width: 600px;
+    height: 400px;
+    border: solid 1px;
+    background-color: rgb(154, 178, 231);
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    margin: -200px 0 0 -300px;
+    display: grid;
+    grid-template-areas:
+        "heading heading heading"
+        "L1 .. L2"
+        "L3 .. L4"
+        "L5 L5 L5"
+        "L6 L6 L6";
+    grid-template-rows: 54px auto auto auto auto auto;
+}
+
+#todoPopupHeading {
+    grid-area: heading;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+#todoPopupHeading > p {
+    margin: 0 0 0 0;
+    padding: 10px 0 10px 0;
+}
+
+#todoPopupL1 {
+    grid-area: L1;
+    margin: 0 0 0 0;
+    padding: 0 0 0 10px;
+}
+
+#todoPopupL2 {
+    grid-area: L2;
+    margin: 0 0 0 0;
+    padding: 0 0 0 10px;
+}
+
+#todoPopupL3 {
+    grid-area: L3;
+    margin: 0 0 0 0;
+    padding: 0 0 0 10px;
+}
+
+#todoPopupL4 {
+    grid-area: L4;
+}
+
+#todoPopupL5 {
+    grid-area: L5;
+    margin: 0 0 0 0;
+    padding: 0 0 0 10px;
+}
+
+#todoPopupL6 {
+    grid-area: L6;
+    text-align: center;
 }
 
 #pageHeader {
@@ -34,24 +109,35 @@ body {
     border-bottom: solid 1px;
     background-color: rgb(166, 166, 207);
     box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+#mainHeading {
+    margin: 0 auto;
+    font-size: 50px;
+    /* padding-left: 50%; */
 }
 
 .project {
     background-color: rgb(132, 132, 230);
-    padding: 10px;
+    padding: 2px;
     border: solid 1px;
-    width: 500px;
-    margin: 0 auto 0 auto;
+    border-radius: 5px;
+    margin: 0 2px 5px 2px;
+    font-size: 16px;
 }
 
 .projectHeader {
-
+    padding-left: 10px;
 }
 
 .todo {
     background-color: rgb(133, 207, 133);
     width: 90%;
-    margin: 0 auto 0 auto;
+    margin: 0 auto;
     border: solid 1px;
     padding: 0 5px;
 }

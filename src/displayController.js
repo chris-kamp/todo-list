@@ -3,28 +3,27 @@ import EventHub from "/src/eventHub.js";
 import datepicker from "js-datepicker";
 import ProjectManager from "/src/project.js";
 import {validateDate, validateDateInput} from "/src/validation.js";
+import displaySidebar from "/src/sidebar.js";
 
 const DisplayController = (() => {
 
     //Store references to relevant elements
-    const todoTitle = $("#todoTitle");
+    const todoTitleInput = $("#todoTitleInput");
     const todoDescription = $("#todoDescription");
     const todoDueDate = $("#todoDueDate");
     const todoPriority = $("#todoPriority");
     const todoProject = $("#todoProject");
-    const projectTitle = $("#projectTitle");
+    const projectTitleInput = $("#projectTitleInput");
     const addTodo = $("#addTodo");
-    const addProject = $("#addProject");
 
-    //Initialise event listeners and elements on page load
+    //Initialise page elements and event listeners
     const initialise = () => {
+    
+    //Initialise module sections
+    displaySidebar();
 
         addTodo.on("click", () => {
             PubSub.publish(EventHub.topics.TODO_CREATION_REQUESTED, getTodoProperties());
-        });
-
-        addProject.on("click", () => {
-            PubSub.publish(EventHub.topics.PROJECT_CREATION_REQUESTED, getProjectProperties());
         });
 
         //Establish due date input as datepicker
@@ -91,7 +90,7 @@ const DisplayController = (() => {
     //Get the properties of a todo to be created from inputs on the page
     const getTodoProperties = () => {
         return {
-            title: todoTitle.val(),
+            title: todoTitleInput.val(),
             description: todoDescription.val(),
             dueDate: todoDueDate.val(),
             priority: todoPriority.val(),
@@ -100,12 +99,7 @@ const DisplayController = (() => {
         
     };
 
-    //Get the properties of a project to be created from inputs on the page
-    const getProjectProperties = () => {
-        return {
-            title: projectTitle.val()
-        }
-    };
+
 
     //Push a project to the selection dropdown list
     const pushToProjectList = (msg, project) => {
@@ -149,7 +143,7 @@ const DisplayController = (() => {
         const projectHeader = $(`<div class="projectHeader"></div>`);
         projectHeader.appendTo(projectElement);
 
-        const projectTitle = $(`<div class="projectTitle">TITLE: ${project.getTitle()}</div>`);
+        const projectTitle = $(`<div class="projectTitle">${project.getTitle()}</div>`);
         projectTitle.appendTo(projectHeader);
 
         //Link the element to its corresponding project
