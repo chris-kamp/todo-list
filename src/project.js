@@ -14,7 +14,7 @@ function Project({title, todos}) {
     function getTodos() {
         return todos;
     }
-    function addTodo(todo) {
+    function createTodo(todo) {
         todos.push(todo);
         return todos;
     }
@@ -55,7 +55,7 @@ function Project({title, todos}) {
 
     //Log the project details for debugging
     // console.log({title, todos});
-    return {getTitle, setTitle, getTodos, addTodo, setDisplayElement, getDisplayElement};
+    return {getTitle, setTitle, getTodos, createTodo, setDisplayElement, getDisplayElement};
 }
 
 const ProjectManager = (() => {
@@ -91,7 +91,7 @@ const ProjectManager = (() => {
 
     //When notified that a todo has been created, push it to the relevant project
     function pushTodoToProject(msg, todo) {
-        todo.getProject().addTodo(todo);
+        todo.getProject().createTodo(todo);
     }
 
     //Initialise a default project for uncategorised todos

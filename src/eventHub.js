@@ -19,7 +19,6 @@ const EventHub = (() => {
     tokens.createTodo = PubSub.subscribe(topics.TODO_VALIDATED, TodoManager.createTodo);
 
     topics.PROJECT_CREATED = "Push project";
-    tokens.pushToProjectList = PubSub.subscribe(topics.PROJECT_CREATED, DisplayController.pushToProjectList);
     tokens.displayProject = PubSub.subscribe(topics.PROJECT_CREATED, DisplayController.displayProject);
 
     topics.TODO_CREATED = "Push todo";
