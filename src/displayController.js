@@ -1,6 +1,7 @@
 import $ from "jquery";
 import displaySidebar from "/src/sidebar.js";
 import displayCreateTodoPopup from "/src/createTodoPopup.js";
+import EventHub from "/src/eventHub.js";
 
 const DisplayController = (() => {
 
@@ -25,39 +26,44 @@ const DisplayController = (() => {
 
 
     //Display a created todo on the page
-    function displayTodo(msg, todo) {
+    function displayTodos(msg, todos) {
         // const parentElement = todo.getProject().getDisplayElement();
-        const parentElement = $("#todoListContainer");
-
-        const todoElement = $(`<div class="todo"></div>`);
-        todoElement.appendTo(parentElement);
-
-        const todoHeader = $(`<div class="todoHeader"></div>`);
-        todoHeader.appendTo(todoElement);
-
-        const todoTitle = $(`<p class="todoTitle">Title: ${todo.getTitle()}</p>`);
-        todoTitle.appendTo(todoHeader);
-
-        const todoDescription = $(`<p class='todoDescription'> Description: ${todo.getDescription()}</p>`);
-        todoDescription.appendTo(todoHeader);
-
-        const todoBody = $(`<div class="todoBody"></div>`);
-        todoBody.appendTo(todoElement);
-        
-        const todoDueDate = $(`<p class="todoDueDate">Due date: ${todo.getDueDateFormatted()}</p>`);
-        todoDueDate.appendTo(todoBody);
-
-        const todoPriority = $(`<p class="todoPriority">Priority: ${todo.getPriority()}</p>`);
-        todoPriority.appendTo(todoBody);
+        const parentElement = $("#todoList");
+        parentElement.empty();
+        todos.forEach(todo => {
+            const todoElement = $(`<div class="todo"></div>`);
+            todoElement.appendTo(parentElement);
+    
+            const todoHeader = $(`<div class="todoHeader"></div>`);
+            todoHeader.appendTo(todoElement);
+    
+            const todoTitle = $(`<p class="todoTitle">Title: ${todo.getTitle()}</p>`);
+            todoTitle.appendTo(todoHeader);
+    
+            const todoDescription = $(`<p class='todoDescription'> Description: ${todo.getDescription()}</p>`);
+            todoDescription.appendTo(todoHeader);
+    
+            const todoBody = $(`<div class="todoBody"></div>`);
+            todoBody.appendTo(todoElement);
+            
+            const todoDueDate = $(`<p class="todoDueDate">Due date: ${todo.getDueDateFormatted()}</p>`);
+            todoDueDate.appendTo(todoBody);
+    
+            const todoPriority = $(`<p class="todoPriority">Priority: ${todo.getPriority()}</p>`);
+            todoPriority.appendTo(todoBody);
+        });
     }
 
     //Display a created project on the page
     function displayProject(msg, project) {
-        //Move this is projectContainer is to be kept permanently
+        //Move this if projectContainer is to be kept permanently
         const projectContainer = $("#projectContainer");
 
         const projectElement = $(`<div class="project"></div>`);
         projectElement.appendTo(projectContainer);
+        projectElement.on("click", () => {
+            PubSub.publish(EventHub.topics.PROJECT_SELECTED, project.getTodos());
+        });
 
         const projectHeader = $(`<div class="projectHeader"></div>`);
         projectHeader.appendTo(projectElement);
@@ -67,9 +73,10 @@ const DisplayController = (() => {
 
         //Link the element to its corresponding project
         project.setDisplayElement(projectElement);
+
     }
 
-    return {initialise, displayTodo, displayProject};
+    return {initialise, displayTodos, displayProject};
 })();
 
 export default DisplayController;
