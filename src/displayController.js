@@ -26,10 +26,11 @@ const DisplayController = (() => {
 
     //Display a created todo on the page
     function displayTodo(msg, todo) {
-        const parentProject = todo.getProject().getDisplayElement();
+        // const parentElement = todo.getProject().getDisplayElement();
+        const parentElement = $("#todoListContainer");
 
         const todoElement = $(`<div class="todo"></div>`);
-        todoElement.appendTo(parentProject);
+        todoElement.appendTo(parentElement);
 
         const todoHeader = $(`<div class="todoHeader"></div>`);
         todoHeader.appendTo(todoElement);
