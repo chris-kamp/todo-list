@@ -13,7 +13,7 @@ function displaySidebar() {
     const projectTitleInput = $(`<input id="projectTitleInput" placeholder="New project">`);
     projectTitleInput.appendTo(sidebar);
 
-    const addProject = $(`<button id="addProject">+</button>`);
+    const addProject = $(`<button id="addProject" class="small">+</button>`);
     addProject.appendTo(sidebar);
 
     //Get the properties of a project to be created from inputs on the page

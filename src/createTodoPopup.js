@@ -30,7 +30,7 @@ function displayCreateTodoPopup() {
     const todoDescription = $(`<input id="todoDescription" placeholder="Description">`);
     const todoPopupL6 = $(`<div id="todoPopupL6">`);
     const createTodo = $(`<button id="createTodo">CREATE</button>`);
-    const cancelTodoPopup = $(`<button id="cancelTodoPopup">CANCEL</button>`);
+    const cancelTodoPopup = $(`<button id="cancelTodoPopup" class="negative">CANCEL</button>`);
 
     ProjectManager.getProjects().forEach(project => {
         $(`<option value="${project.getTitle()}">${project.getTitle()}</option>`).appendTo(todoProject);

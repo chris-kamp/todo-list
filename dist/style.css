@@ -206,3 +206,35 @@ body {
 .priorityLow {
     background-color: rgb(103, 184, 116);
 }
+
+button {
+    background-color: rgb(77, 146, 80);
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px black;
+}
+
+button:hover {
+    background-color: rgb(86, 165, 90);
+}
+
+button:active {
+    box-shadow: inset 2px 2px 1px black;
+}
+
+button.negative {
+    background-color: rgb(105, 42, 42);
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px black;
+}
+
+button.negative:hover {
+    background-color: rgb(158, 62, 62);
+}
+
+button.negative:active {
+    box-shadow: inset 2px 2px 1px black;
+}
+
+button.small {
+    box-shadow: none;
+}
