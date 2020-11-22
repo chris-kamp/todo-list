@@ -12,7 +12,7 @@ function displayCreateTodoPopup() {
     const headingText = $(`<p>CREATE TODO</p>`);
     const todoPopupL1 = $(`<div id="todoPopupL1">`);
     const titleSpan = $(`<span>TITLE:</span>`);
-    const todoTitleInput = $(`<input id="todoTitleInput" placeholder="Title">`);
+    const todoTitleInput = $(`<input id="todoTitleInput" placeholder="Title" maxlength="30">`);
     const todoPopupL2 = $(`<div id="todoPopupL2">`);
     const projectSpan = $(`<span>PROJECT: </span>`);
     const todoProject = $(`<select id="todoProject"></select>`);

@@ -10,7 +10,7 @@ function displaySidebar() {
     const projectContainer = $(`<div id="projectContainer"></div>`);
     projectContainer.appendTo(sidebar);
 
-    const projectTitleInput = $(`<input id="projectTitleInput" placeholder="New project">`);
+    const projectTitleInput = $(`<input id="projectTitleInput" placeholder="New project" maxlength="30">`);
     projectTitleInput.appendTo(sidebar);
 
     const addProject = $(`<button id="addProject" class="small">+</button>`);
