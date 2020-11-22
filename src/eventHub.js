@@ -26,7 +26,8 @@ const EventHub = (() => {
     tokens.pushTodoToProject = PubSub.subscribe(topics.TODO_CREATED, ProjectManager.pushTodoToProject);
 
     topics.PROJECT_SELECTED = "Project selected";
-    tokens.displayTodos = PubSub.subscribe(topics.PROJECT_SELECTED, DisplayController.displayTodos)
+    tokens.displayTodos = PubSub.subscribe(topics.PROJECT_SELECTED, DisplayController.displayTodos);
+    tokens.selectProject = PubSub.subscribe(topics.PROJECT_SELECTED, ProjectManager.select);
 
     
     return {topics, tokens};

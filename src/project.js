@@ -1,9 +1,10 @@
 import EventHub from "/src/eventHub.js";
 
-function Project({title, todos}) {
+function Project({title, todos, selected}) {
     title = title || nameUntitled();
     todos = todos || [];
     let displayElement;
+    selected = selected || false;
 
     function getTitle() {
         return title;
@@ -23,6 +24,17 @@ function Project({title, todos}) {
     }
     function getDisplayElement(element) {
         return displayElement;
+    }
+    function isSelected() {
+        return selected;
+    }
+    function select() {
+        selected = true;
+        displayElement.removeClass("unselectedProject").addClass("selectedProject");
+    }
+    function deselect() {
+        selected = false;
+        displayElement.removeClass("selectedProject").addClass("unselectedProject");
     }
 
     //If project title is a duplicate, throw error and return false
@@ -55,7 +67,7 @@ function Project({title, todos}) {
 
     //Log the project details for debugging
     // console.log({title, todos});
-    return {getTitle, setTitle, getTodos, createTodo, setDisplayElement, getDisplayElement};
+    return {getTitle, setTitle, getTodos, createTodo, setDisplayElement, getDisplayElement, select, deselect, isSelected};
 }
 
 const ProjectManager = (() => {
@@ -94,12 +106,26 @@ const ProjectManager = (() => {
         todo.getProject().createTodo(todo);
     }
 
+    //Select a project (and deselect others)
+    function select(msg, selection) {
+        projects.forEach(project => {
+            if(project === selection) {
+                project.select();
+            } else {
+                project.deselect();
+            }
+        });
+    }
+
     //Initialise a default project for uncategorised todos
     function initialise() {
-        PubSub.publish(EventHub.topics.PROJECT_CREATION_REQUESTED, {title: "Uncategorised"});
+        PubSub.publish(EventHub.topics.PROJECT_CREATION_REQUESTED, {
+            title: "Uncategorised",
+            selected: true
+        });
     }
     
-    return {createProject, getProjects, initialise, getProjectByTitle, pushTodoToProject};
+    return {createProject, getProjects, initialise, getProjectByTitle, pushTodoToProject, select};
 })();
 
 

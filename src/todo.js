@@ -83,7 +83,7 @@ const TodoManager = (() => {
         todos.push(todo);
         PubSub.publish(EventHub.topics.TODO_CREATED, todo);
         //Automatically select the project in which the todo was created
-        PubSub.publish(EventHub.topics.PROJECT_SELECTED, todo.getProject().getTodos());
+        PubSub.publish(EventHub.topics.PROJECT_SELECTED, todo.getProject());
         return todo;
     }
 

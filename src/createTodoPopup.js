@@ -34,6 +34,9 @@ function displayCreateTodoPopup() {
 
     ProjectManager.getProjects().forEach(project => {
         $(`<option value="${project.getTitle()}">${project.getTitle()}</option>`).appendTo(todoProject);
+        if(project.isSelected()) {
+            todoProject.val(`${project.getTitle()}`);
+        }
     });
 
     createTodoPopup.appendTo($(mainContent));

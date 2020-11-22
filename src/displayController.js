@@ -26,8 +26,8 @@ const DisplayController = (() => {
 
 
     //Display a created todo on the page
-    function displayTodos(msg, todos) {
-        // const parentElement = todo.getProject().getDisplayElement();
+    function displayTodos(msg, project) {
+        const todos = project.getTodos();
         const parentElement = $("#todoList");
         parentElement.empty();
         todos.forEach(todo => {
@@ -62,7 +62,7 @@ const DisplayController = (() => {
         const projectElement = $(`<div class="project"></div>`);
         projectElement.appendTo(projectContainer);
         projectElement.on("click", () => {
-            PubSub.publish(EventHub.topics.PROJECT_SELECTED, project.getTodos());
+            PubSub.publish(EventHub.topics.PROJECT_SELECTED, project);
         });
 
         const projectHeader = $(`<div class="projectHeader"></div>`);
@@ -73,6 +73,11 @@ const DisplayController = (() => {
 
         //Link the element to its corresponding project
         project.setDisplayElement(projectElement);
+        if(project.isSelected()) {
+            projectElement.removeClass("unselectedProject").addClass("selectedProject");
+        } else {
+            projectElement.removeClass("selectedProject").addClass("unselectedProject");
+        }
 
     }
 
