@@ -21,7 +21,6 @@ const DisplayController = (() => {
 
         //Initialise module sections
         displaySidebar();
-        // displayCreateTodoPopup();
     };
 
 
@@ -37,20 +36,20 @@ const DisplayController = (() => {
             const todoHeader = $(`<div class="todoHeader"></div>`);
             todoHeader.appendTo(todoElement);
     
-            const todoTitle = $(`<p class="todoTitle">Title: ${todo.getTitle()}</p>`);
+            const todoTitle = $(`<span class="todoTitle">${todo.getTitle()}</span>`);
             todoTitle.appendTo(todoHeader);
-    
-            const todoDescription = $(`<p class='todoDescription'> Description: ${todo.getDescription()}</p>`);
-            todoDescription.appendTo(todoHeader);
-    
+
+            const todoDueDate = $(`<span class="todoDueDate">${todo.getDueDateFormatted()}</span>`);
+            todoDueDate.appendTo(todoHeader);
+     
             const todoBody = $(`<div class="todoBody"></div>`);
             todoBody.appendTo(todoElement);
             
-            const todoDueDate = $(`<p class="todoDueDate">Due date: ${todo.getDueDateFormatted()}</p>`);
-            todoDueDate.appendTo(todoBody);
+            const todoDescription = $(`<p class='todoDescription'>${todo.getDescription()}</p>`);
+            todoDescription.appendTo(todoBody);
     
-            const todoPriority = $(`<p class="todoPriority">Priority: ${todo.getPriority()}</p>`);
-            todoPriority.appendTo(todoBody);
+            // const todoPriority = $(`<p class="todoPriority">Priority: ${todo.getPriority()}</p>`);
+            // todoPriority.appendTo(todoBody);
 
             switch(todo.getPriority()) {
                 case "high":
@@ -63,6 +62,10 @@ const DisplayController = (() => {
                     todoElement.addClass("priorityLow");
                     break;
             }
+
+            todoElement.on("click", () => {
+                todoBody.toggle();
+            });
         });
     }
 

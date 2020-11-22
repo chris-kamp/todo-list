@@ -26,8 +26,8 @@ function displayCreateTodoPopup() {
     const priorityOptionNormal = $(`<option value="normal" selected="selected">Normal</option>`);
     const priorityOptionLow = $(`<option value="low">Low</option>`);
     const todoPopupL5 = $(`<div id="todoPopupL5">`);
-    const descriptionSpan = $(`<span>DESCRIPTION:</span>`);
-    const todoDescription = $(`<input id="todoDescription" placeholder="Description">`);
+    const descriptionSpan = $(`<p>DESCRIPTION:</p>`);
+    const todoDescription = $(`<textarea id="todoDescription" placeholder="Description" maxlength="500">`);
     const todoPopupL6 = $(`<div id="todoPopupL6">`);
     const createTodo = $(`<button id="createTodo">CREATE</button>`);
     const cancelTodoPopup = $(`<button id="cancelTodoPopup" class="negative">CANCEL</button>`);
