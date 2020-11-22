@@ -51,6 +51,18 @@ const DisplayController = (() => {
     
             const todoPriority = $(`<p class="todoPriority">Priority: ${todo.getPriority()}</p>`);
             todoPriority.appendTo(todoBody);
+
+            switch(todo.getPriority()) {
+                case "high":
+                    todoElement.addClass("priorityHigh");
+                    break;
+                case "normal":
+                    todoElement.addClass("priorityNormal");
+                    break;
+                case "low":
+                    todoElement.addClass("priorityLow");
+                    break;
+            }
         });
     }
 
