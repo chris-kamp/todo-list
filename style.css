@@ -144,12 +144,39 @@ body {
 }
 
 .project {
-    background-color: rgb(132, 132, 230);
+
     padding: 2px;
     border: solid 1px;
     border-radius: 5px;
     margin: 0 2px 5px 2px;
     font-size: 16px;
+    box-shadow: 1px 1px 0 black;
+}
+
+.unselectedProject {
+    background-color: rgb(132, 132, 230);
+}
+
+.selectedProject {
+    background-color: rgb(189, 161, 72);
+}
+
+.unselectedProject:hover {
+    background-color: rgb(168, 168, 226);
+}
+
+.unselectedProject:active {
+    background-color: rgb(168, 168, 226);
+    box-shadow: inset 1px 1px 0 black;
+}
+
+.selectedProject:hover {
+    background-color: rgb(223, 201, 132);
+}
+
+.selectedProject:active {
+    background-color: rgb(223, 201, 132);
+    box-shadow: inset 1px 1px 0 black;
 }
 
 .projectHeader {
