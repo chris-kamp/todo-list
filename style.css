@@ -42,7 +42,10 @@ body {
 #createTodoPopup {
     width: 600px;
     height: 400px;
-    border: solid 1px;
+    border: solid 5px;
+    border-color: rgb(123, 138, 172);
+    box-shadow: 8px 8px 10px rgb(70, 76, 88);
+    border-radius: 10px;
     background-color: rgb(154, 178, 231);
     position: absolute;
     left: 50%;
