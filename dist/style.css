@@ -36,6 +36,7 @@ body {
     background-color: rgb(189, 189, 108);
     width: 85vw;
     padding: 10px 0 0 10px;
+    position: relative;   
 }
 
 #createTodoPopup {
