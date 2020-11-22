@@ -188,9 +188,21 @@ body {
 }
 
 .todo {
-    background-color: rgb(133, 207, 133);
-    width: 90%;
-    margin: 0 auto;
+    /* background-color: rgb(133, 207, 133); */
+    width: 60%;
     border: solid 1px;
+    margin: 0 auto;
     padding: 0 5px;
+}
+
+.priorityHigh {
+    background-color: rgb(153, 45, 37);
+}
+
+.priorityNormal {
+    background-color: rgb(156, 167, 59);
+}
+
+.priorityLow {
+    background-color: rgb(103, 184, 116);
 }
