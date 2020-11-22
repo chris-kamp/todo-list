@@ -68,6 +68,17 @@ body {
     font-weight: bold;
 }
 
+#todoDescription {
+    min-width: 575px;
+    height: 100px;
+    resize: none;
+    border-radius: 10px;
+}
+
+#todoDescription:focus {
+    outline: none;
+}
+
 #todoPopupHeading > p {
     margin: 0 0 0 0;
     padding: 10px 0 10px 0;
@@ -82,7 +93,7 @@ body {
 #todoPopupL2 {
     grid-area: L2;
     margin: 0 0 0 0;
-    padding: 0 0 0 10px;
+    padding: 0 0 0 0;
 }
 
 #todoPopupL3 {
@@ -191,6 +202,25 @@ body {
     border: solid 1px;
     margin: 0 auto;
     padding: 0 5px;
+    border-radius: 5px;
+}
+
+.todoHeader {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0 0 0;
+}
+
+.todoTitle {
+    font-weight: bold;
+}
+
+.todoDueDate {
+    font-style: italic;
+}
+
+.todoBody {
+
 }
 
 .priorityHigh {
@@ -203,6 +233,10 @@ body {
 
 .priorityLow {
     background-color: rgb(103, 184, 116);
+}
+
+.todoDescription {
+    overflow-wrap: break-word;
 }
 
 button {
