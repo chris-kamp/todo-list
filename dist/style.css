@@ -50,7 +50,7 @@ body {
 
 #createTodoPopup {
     width: 600px;
-    height: 400px;
+    height: 370px;
     border: solid 5px;
     border-color: rgb(123, 138, 172);
     box-shadow: 8px 8px 10px rgb(70, 76, 88);
@@ -59,15 +59,16 @@ body {
     position: absolute;
     left: 50%;
     top: 40%;
-    margin: -200px 0 0 -300px;
+    margin: -185px 0 0 -300px;
     display: grid;
     grid-template-areas:
         "heading heading heading"
         "L1 .. L2"
         "L3 .. L4"
         "L5 L5 L5"
-        "L6 L6 L6";
-    grid-template-rows: 54px auto auto auto auto auto;
+        "L6 L6 L6"
+        "L7 L7 L7";
+    grid-template-rows: 60px 40px 30px 170px 30px 30px;
 }
 
 #todoPopupHeading {
@@ -124,6 +125,20 @@ body {
 #todoPopupL6 {
     grid-area: L6;
     text-align: center;
+}
+
+#todoPopupL7 {
+    grid-area: L7;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.errorText {
+    color: rgb(165, 17, 17);
+    font-size: 20px;
+    font-weight: bold;
+    /* margin: 0 0 10px 0;
+    padding: 0 0 10px 0; */
 }
 
 #pageHeader {

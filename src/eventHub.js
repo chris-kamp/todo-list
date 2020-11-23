@@ -18,12 +18,15 @@ const EventHub = (() => {
     topics.TODO_VALIDATED = "Todo validated";
     tokens.createTodo = PubSub.subscribe(topics.TODO_VALIDATED, TodoManager.createTodo);
 
+    topics.TODO_CREATION_ERROR = "Todo creation error";
+    //See createTodoPopup.js for subscription   
+
     topics.PROJECT_CREATED = "Push project";
     tokens.displayProject = PubSub.subscribe(topics.PROJECT_CREATED, DisplayController.displayProject);
 
-    topics.TODO_CREATED = "Push todo";
-    // tokens.displayTodo = PubSub.subscribe(topics.TODO_CREATED, DisplayController.displayTodo);
+    topics.TODO_CREATED = "Todo created";
     tokens.pushTodoToProject = PubSub.subscribe(topics.TODO_CREATED, ProjectManager.pushTodoToProject);
+    //See createTodoPopup.js for additional subscription    
 
     topics.PROJECT_SELECTED = "Project selected";
     tokens.displayTodos = PubSub.subscribe(topics.PROJECT_SELECTED, DisplayController.displayTodos);

@@ -15,7 +15,6 @@ function validateDateInput(dateInput) {
 
 //Validate a date string
 function validateDate({dateStr, allowPartial}) {
-    // console.log(dateStr.split("/"));
     const dateArray = dateStr.split("/");
     const yearStr = dateArray[2];
     const monthStr = dateArray[1];
@@ -135,7 +134,7 @@ function validateYear(year) {
 function validateTodo(msg, {title, description, dueDate, priority, project}) {
     dueDate = validateDate({dateStr: dueDate, allowPartial: false});
     if(dueDate === false) {
-        console.log("Failed to validate todo due date. Please enter a valid due date (dd/mm/yyyy).");
+        PubSub.publish(EventHub.topics.TODO_CREATION_ERROR, "Please enter a valid due date (dd/mm/yyyy).");
         return false;
     } else {
         //WIP: Allow for other formats

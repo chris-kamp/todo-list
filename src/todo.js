@@ -45,7 +45,7 @@ function Todo({title, description, dueDate, priority, project}) {
 
     //If todo title is a duplicate within the same project, throw error and return false
     if(checkDuplicates(title)) {
-        console.log("Error! A Todo of that name already exists within the same project.");
+        PubSub.publish(EventHub.topics.TODO_CREATION_ERROR, "Error! A Todo of that name already exists within the same project.");
         return false;
     }
 

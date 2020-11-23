@@ -32,6 +32,8 @@ function displayCreateTodoPopup() {
     const todoPopupL6 = $(`<div id="todoPopupL6">`);
     const createTodo = $(`<button id="createTodo">CREATE</button>`);
     const cancelTodoPopup = $(`<button id="cancelTodoPopup" class="negative">CANCEL</button>`);
+    const todoPopupL7 = $(`<div id="todoPopupL7">`);
+    const errorText = $(`<span class="errorText"></span>`);
 
     ProjectManager.getProjects().forEach(project => {
         $(`<option value="${project.getTitle()}">${project.getTitle()}</option>`).appendTo(todoProject);
@@ -65,6 +67,8 @@ function displayCreateTodoPopup() {
     todoPopupL6.appendTo(createTodoPopup);
     createTodo.appendTo(todoPopupL6);
     cancelTodoPopup.appendTo(todoPopupL6);
+    todoPopupL7.appendTo(createTodoPopup);
+    errorText.appendTo(todoPopupL7);
 
     //Get the properties of a todo to be created from inputs on the page
     const getTodoProperties = () => {
@@ -79,15 +83,40 @@ function displayCreateTodoPopup() {
 
     createTodo.on("click", () => {
         PubSub.publish(EventHub.topics.TODO_CREATION_REQUESTED, getTodoProperties());
-        todoDueDatePicker.remove();
-        backdrop.remove();
-        createTodoPopup.remove();
+        // todoDueDatePicker.remove();
+        // backdrop.remove();
+        // createTodoPopup.remove();
     });
 
-    cancelTodoPopup.on("click", () => {
+    createTodoPopup.on("click", () => {
+        errorText.toggle();
+    })
+
+    function displayTodoCreationError(msg, data) {
+        //WIP - Subscribe to a pubsub
+        errorText.text(data);
+        errorText.show();
+    }
+
+    EventHub.tokens.displayTodoCreationError = PubSub.subscribe(EventHub.topics.TODO_CREATION_ERROR, displayTodoCreationError);
+
+    //Close the popup and remove the subscription to todo creation notification
+    function closePopup() {
         todoDueDatePicker.remove();
         backdrop.remove();
         createTodoPopup.remove();
+        unsub();
+    }
+
+    function unsub() {
+        PubSub.unsubscribe(closePopup);
+    }
+
+    //When todo successfully created, close the popup
+    EventHub.tokens.closePopup = PubSub.subscribe(EventHub.topics.TODO_CREATED, closePopup);
+
+    cancelTodoPopup.on("click", () => {
+        closePopup();
     });
 
     //Establish due date input as datepicker
@@ -116,7 +145,6 @@ function displayCreateTodoPopup() {
 
     //Disallow invalid date inputs
     todoDueDate.on("beforeinput", (event) => {
-        // console.log(event.originalEvent.data);
         if(event.originalEvent.data === null || event.originalEvent.data === "") {
             return;
         }
