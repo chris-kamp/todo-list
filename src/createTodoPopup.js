@@ -6,7 +6,8 @@ import ProjectManager from "/src/project.js";
 
 function displayCreateTodoPopup() {
     const mainContent = $("#mainContent");
-
+    
+    const backdrop = $(`<div id="popupBackdrop">`);
     const createTodoPopup = $(`<div id="createTodoPopup">`);
     const todoPopupHeading = $(`<div id="todoPopupHeading">`);
     const headingText = $(`<p>CREATE TODO</p>`);
@@ -39,6 +40,7 @@ function displayCreateTodoPopup() {
         }
     });
 
+    backdrop.appendTo(mainContent);
     createTodoPopup.appendTo($(mainContent));
     todoPopupHeading.appendTo(createTodoPopup);
     headingText.appendTo(todoPopupHeading);
@@ -78,11 +80,13 @@ function displayCreateTodoPopup() {
     createTodo.on("click", () => {
         PubSub.publish(EventHub.topics.TODO_CREATION_REQUESTED, getTodoProperties());
         todoDueDatePicker.remove();
+        backdrop.remove();
         createTodoPopup.remove();
     });
 
     cancelTodoPopup.on("click", () => {
         todoDueDatePicker.remove();
+        backdrop.remove();
         createTodoPopup.remove();
     });
 
