@@ -19,7 +19,10 @@ const EventHub = (() => {
     tokens.createTodo = PubSub.subscribe(topics.TODO_VALIDATED, TodoManager.createTodo);
 
     topics.TODO_CREATION_ERROR = "Todo creation error";
-    //See createTodoPopup.js for subscription   
+    //See createTodoPopup.js for subscription
+
+    topics.PROJECT_CREATION_ERROR = "Project creation error";
+    //See sidebar.js for subscription
 
     topics.PROJECT_CREATED = "Push project";
     tokens.displayProject = PubSub.subscribe(topics.PROJECT_CREATED, DisplayController.displayProject);

@@ -33,7 +33,7 @@ function displayCreateTodoPopup() {
     const createTodo = $(`<button id="createTodo">CREATE</button>`);
     const cancelTodoPopup = $(`<button id="cancelTodoPopup" class="negative">CANCEL</button>`);
     const todoPopupL7 = $(`<div id="todoPopupL7">`);
-    const errorText = $(`<span class="errorText"></span>`);
+    const errorText = $(`<span class="todoErrorText"></span>`);
 
     ProjectManager.getProjects().forEach(project => {
         $(`<option value="${project.getTitle()}">${project.getTitle()}</option>`).appendTo(todoProject);
@@ -92,12 +92,11 @@ function displayCreateTodoPopup() {
         errorText.toggle();
     })
 
+    //Display error text when todo creation fails
     function displayTodoCreationError(msg, data) {
-        //WIP - Subscribe to a pubsub
         errorText.text(data);
         errorText.show();
     }
-
     EventHub.tokens.displayTodoCreationError = PubSub.subscribe(EventHub.topics.TODO_CREATION_ERROR, displayTodoCreationError);
 
     //Close the popup and remove the subscription to todo creation notification

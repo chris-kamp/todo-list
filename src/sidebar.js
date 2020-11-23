@@ -16,6 +16,20 @@ function displaySidebar() {
     const addProject = $(`<button id="addProject" class="small">+</button>`);
     addProject.appendTo(sidebar);
 
+    const errorContainer = $(`<div></div>`);
+    errorContainer.appendTo(sidebar);
+    errorContainer.hide();
+
+    const errorText = $(`<span class="projectErrorText">Error</span>`);
+    errorText.appendTo(errorContainer);
+
+    //Display error text when project creation fails
+    function displayProjectCreationError(msg, data) {
+        errorText.text(data);
+        errorContainer.show();
+    }
+    EventHub.tokens.displayTodoCreationError = PubSub.subscribe(EventHub.topics.PROJECT_CREATION_ERROR, displayProjectCreationError);
+
     //Get the properties of a project to be created from inputs on the page
     const getProjectProperties = () => {
         return {
@@ -24,6 +38,7 @@ function displaySidebar() {
     };
 
     addProject.on("click", () => {
+        errorContainer.hide();
         PubSub.publish(EventHub.topics.PROJECT_CREATION_REQUESTED, getProjectProperties());
         projectTitleInput.val("");
     });

@@ -39,7 +39,8 @@ function Project({title, todos, selected}) {
 
     //If project title is a duplicate, throw error and return false
     if(checkDuplicates(title)) {
-        console.log("Error! That name is taken.");
+        // console.log("Error! That name is taken.");
+        PubSub.publish(EventHub.topics.PROJECT_CREATION_ERROR, "Error! A project of that name already exists.");
         return false;
     }
 
