@@ -16,6 +16,13 @@ body {
     padding-left: 10px;
 }
 
+.projectErrorText {
+    color: rgb(165, 17, 17);
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0 0 0 3px;
+}
+
 #mainContainer {
     background-color: rgb(153, 207, 153);
     min-height: 90vh;
@@ -133,12 +140,10 @@ body {
     padding-bottom: 10px;
 }
 
-.errorText {
+.todoErrorText {
     color: rgb(165, 17, 17);
     font-size: 20px;
     font-weight: bold;
-    /* margin: 0 0 10px 0;
-    padding: 0 0 10px 0; */
 }
 
 #pageHeader {
