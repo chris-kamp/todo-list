@@ -44,6 +44,7 @@ const DisplayController = (() => {
      
             const todoBody = $(`<div class="todoBody"></div>`);
             todoBody.appendTo(todoElement);
+            todoBody.hide();
             
             const todoDescription = $(`<p class='todoDescription'>${todo.getDescription()}</p>`);
             todoDescription.appendTo(todoBody);
