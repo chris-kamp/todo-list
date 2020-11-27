@@ -94,10 +94,18 @@ const DisplayController = (() => {
         } else {
             projectElement.removeClass("selectedProject").addClass("unselectedProject");
         }
-
     }
 
-    return {initialise, displayTodos, displayProject};
+    function displayAllProjects(msg, projects) {
+        const projectContainer = $("#projectContainer");
+        projectContainer.empty();
+        console.log("(dC 102) Projects to display length: " + projects.length);
+        projects.forEach(project => {
+            displayProject("", project);
+        });
+    }
+
+    return {initialise, displayTodos, displayProject, displayAllProjects};
 })();
 
 export default DisplayController;

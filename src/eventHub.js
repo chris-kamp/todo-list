@@ -1,7 +1,8 @@
 import DisplayController from "./displayController";
 import ProjectManager from "/src/project.js";
 import TodoManager from "/src/todo.js";
-import {validateTodo} from "/src/validation.js"
+import {validateTodo} from "/src/validation.js";
+import {storeProjects, storeTodos, retrieveProjects} from "/src/storage.js";
 
 
 const EventHub = (() => {
@@ -24,7 +25,7 @@ const EventHub = (() => {
     topics.PROJECT_CREATION_ERROR = "Project creation error";
     //See sidebar.js for subscription
 
-    topics.PROJECT_CREATED = "Push project";
+    topics.PROJECT_CREATED = "Project created";
     tokens.displayProject = PubSub.subscribe(topics.PROJECT_CREATED, DisplayController.displayProject);
 
     topics.TODO_CREATED = "Todo created";
@@ -35,6 +36,18 @@ const EventHub = (() => {
     tokens.displayTodos = PubSub.subscribe(topics.PROJECT_SELECTED, DisplayController.displayTodos);
     tokens.selectProject = PubSub.subscribe(topics.PROJECT_SELECTED, ProjectManager.select);
 
+    //WIP - Delete?
+    topics.STORE_PROJECTS = "Store projects";
+    tokens.storeProjects = PubSub.subscribe(topics.STORE_PROJECTS, storeProjects);
+
+    topics.STORE_TODOS = "Store todos";
+    tokens.storeTodos = PubSub.subscribe(topics.STORE_TODOS, storeTodos);
+
+    topics.RETRIEVE_PROJECTS = "Retrieve projects";
+    tokens.retrieveProjects = PubSub.subscribe(topics.RETRIEVE_PROJECTS, retrieveProjects);
+
+    topics.PROJECTS_RETRIEVED = "Projects retrieved";
+    tokens.displayAllProjects = PubSub.subscribe(topics.PROJECTS_RETRIEVED, DisplayController.displayAllProjects);
     
     return {topics, tokens};
 })();

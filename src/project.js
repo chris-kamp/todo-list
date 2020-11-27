@@ -73,7 +73,7 @@ function Project({title, todos, selected}) {
 
 const ProjectManager = (() => {
     //An array of all existing projects
-    const projects = [];
+    let projects = [];
 
     //Get the array of projects
     function getProjects() {
@@ -90,6 +90,10 @@ const ProjectManager = (() => {
         return false;
     }
 
+    function setProjects(storedProjects) {
+        projects = storedProjects;
+    }
+
     //Creates a new project and pushes it to the array when notified
     function createProject(msg, data) {
         const project = Project(data);
@@ -98,6 +102,7 @@ const ProjectManager = (() => {
             return false;
         }
         projects.push(project);
+        PubSub.publish(EventHub.topics.STORE_PROJECTS, getProjects());
         PubSub.publish(EventHub.topics.PROJECT_CREATED, project);
         return project;
     }
@@ -116,17 +121,21 @@ const ProjectManager = (() => {
                 project.deselect();
             }
         });
+        PubSub.publish(EventHub.topics.STORE_PROJECTS, projects);
     }
 
     //Initialise a default project for uncategorised todos
     function initialise() {
-        PubSub.publish(EventHub.topics.PROJECT_CREATION_REQUESTED, {
-            title: "Uncategorised",
-            selected: true
-        });
+        PubSub.publish(EventHub.topics.RETRIEVE_PROJECTS, "");
+        // if(projects.length === 0) {
+        //     PubSub.publish(EventHub.topics.PROJECT_CREATION_REQUESTED, {
+        //         title: "Uncategorised",
+        //         selected: true
+        //     });
+        // }
     }
     
-    return {createProject, getProjects, initialise, getProjectByTitle, pushTodoToProject, select};
+    return {createProject, getProjects, initialise, getProjectByTitle, pushTodoToProject, select, setProjects};
 })();
 
 
