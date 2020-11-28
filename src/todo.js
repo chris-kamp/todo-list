@@ -1,13 +1,15 @@
 import EventHub from "/src/eventHub.js";
 import format from 'date-fns/format';
+import ProjectManager from "./project";
 
-function Todo({title, description, dueDate, priority, project}) {
-    
+function Todo({title, description, dueDate, priority, project, loaded}) {
     title = title || "Untitled";
     description = description || "No description"; //For testing, default should otherwise be blank
     dueDate = dueDate || false;
     priority = priority || false;
     project = project || false; //All Todos should have a project, so need error handling for this
+    loaded = loaded || false; //Whether loaded from storage. Relevant to whether the todo's parent project will be automatically selected.
+
 
     function getTitle() {
         return title;
@@ -42,6 +44,10 @@ function Todo({title, description, dueDate, priority, project}) {
     function setProject(arg) {
         project = arg;
     }
+    function isLoaded() {
+        return loaded;
+    }
+
 
     //If todo title is a duplicate within the same project, throw error and return false
     if(checkDuplicates(title)) {
@@ -59,10 +65,10 @@ function Todo({title, description, dueDate, priority, project}) {
         }
         return false;
     }
-
+    
     //Log the todo details for debugging
     // console.log({title, description, dueDate, priority, project});
-    return {getTitle, setTitle, getDescription, setDescription, getDueDate, getDueDateFormatted, setDueDate, getPriority, setPriority, getProject, setProject};
+    return {getTitle, setTitle, getDescription, setDescription, getDueDate, getDueDateFormatted, setDueDate, getPriority, setPriority, getProject, setProject, isLoaded};
 }
 
 const TodoManager = (() => {
@@ -81,11 +87,22 @@ const TodoManager = (() => {
             return false;
         }
         todos.push(todo);
+        PubSub.publish(EventHub.topics.STORE_TODOS, todos);
         PubSub.publish(EventHub.topics.TODO_CREATED, todo);
-        //Automatically select the project in which the todo was created
-        PubSub.publish(EventHub.topics.PROJECT_SELECTED, todo.getProject());
+        //If todo is new and not being retrieved from storage, automatically select the project in which the todo was created
+        if(todo.isLoaded()){
+            const selectedProjectTitle = localStorage.getItem("selectedProjectTitle");
+            const selectedProject = ProjectManager.getProjectByTitle(selectedProjectTitle);
+            PubSub.publish(EventHub.topics.PROJECT_SELECTED, selectedProject);
+        } else {
+            PubSub.publish(EventHub.topics.PROJECT_SELECTED, todo.getProject());
+        }
         return todo;
     }
+
+    // function initialise() {
+    //     PubSub.publish(EventHub.topics.RETRIEVE_TODOS, "");
+    // }
 
     return {createTodo, getTodos};
 })();

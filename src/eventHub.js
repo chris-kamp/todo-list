@@ -2,7 +2,7 @@ import DisplayController from "./displayController";
 import ProjectManager from "/src/project.js";
 import TodoManager from "/src/todo.js";
 import {validateTodo} from "/src/validation.js";
-import {storeProjects, storeTodos, retrieveProjects} from "/src/storage.js";
+import {storeProjects, storeTodos, retrieveProjects, retrieveTodos} from "/src/storage.js";
 
 
 const EventHub = (() => {
@@ -43,11 +43,11 @@ const EventHub = (() => {
     topics.STORE_TODOS = "Store todos";
     tokens.storeTodos = PubSub.subscribe(topics.STORE_TODOS, storeTodos);
 
+    topics.RETRIEVE_TODOS = "Retrieve todos";
+    tokens.retrieveTodos = PubSub.subscribe(topics.RETRIEVE_TODOS, retrieveTodos);
+
     topics.RETRIEVE_PROJECTS = "Retrieve projects";
     tokens.retrieveProjects = PubSub.subscribe(topics.RETRIEVE_PROJECTS, retrieveProjects);
-
-    topics.PROJECTS_RETRIEVED = "Projects retrieved";
-    tokens.displayAllProjects = PubSub.subscribe(topics.PROJECTS_RETRIEVED, DisplayController.displayAllProjects);
     
     return {topics, tokens};
 })();
