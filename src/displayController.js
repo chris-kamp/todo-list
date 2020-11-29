@@ -30,8 +30,11 @@ const DisplayController = (() => {
         const parentElement = $("#todoList");
         parentElement.empty();
         todos.forEach(todo => {
+            const todoContainer = $(`<div class="todoContainer"></div>`);
+            todoContainer.appendTo(parentElement);
+
             const todoElement = $(`<div class="todo"></div>`);
-            todoElement.appendTo(parentElement);
+            todoElement.appendTo(todoContainer);
     
             const todoHeader = $(`<div class="todoHeader"></div>`);
             todoHeader.appendTo(todoElement);
@@ -41,6 +44,9 @@ const DisplayController = (() => {
 
             const todoDueDate = $(`<span class="todoDueDate">${todo.getDueDateFormatted()}</span>`);
             todoDueDate.appendTo(todoHeader);
+
+            const todoCheckbox = $(`<input type="checkbox" class="todoCheckbox"></input>`);
+            todoCheckbox.appendTo(todoHeader);
      
             const todoBody = $(`<div class="todoBody"></div>`);
             todoBody.appendTo(todoElement);
@@ -48,9 +54,6 @@ const DisplayController = (() => {
             
             const todoDescription = $(`<p class='todoDescription'>${todo.getDescription()}</p>`);
             todoDescription.appendTo(todoBody);
-    
-            // const todoPriority = $(`<p class="todoPriority">Priority: ${todo.getPriority()}</p>`);
-            // todoPriority.appendTo(todoBody);
 
             switch(todo.getPriority()) {
                 case "high":
@@ -64,8 +67,11 @@ const DisplayController = (() => {
                     break;
             }
 
-            todoElement.on("click", () => {
-                todoBody.toggle();
+            todoElement.on("click", (event) => {
+                if(event.target !== todoCheckbox[0]) {
+                    todoBody.toggle();
+                }
+                
             });
         });
     }
