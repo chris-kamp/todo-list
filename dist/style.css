@@ -226,6 +226,17 @@ body {
     padding-left: 10px;
 }
 
+#todoListHeading {
+    font-size: 25px;
+    text-decoration: underline;
+    margin-bottom: 10px;
+}
+
+#completedListHeading {
+    font-size: 20px;
+    font-style: italic;
+}
+
 .todo {
     width: 60%;
     border: solid 1px;
@@ -237,7 +248,7 @@ body {
 .todoHeader {
     display: flex;
     justify-content: space-between;
-    margin: 5px 0 0 0;
+    margin: 5px 0 5px 0;
 }
 
 .todoTitle {
@@ -251,7 +262,7 @@ body {
 }
 
 .todoCheckbox {
-
+    margin: 2px 0 0 0;
 }
 
 .todoBody {
