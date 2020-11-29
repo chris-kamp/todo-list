@@ -27,13 +27,15 @@ const DisplayController = (() => {
     //Display a created todo on the page
     function displayTodos(msg, project) {
         const todos = project.getTodos();
-        const parentElement = $("#todoList");
-        parentElement.empty();
+        const todoList = $("#todoList");
+        todoList.empty();
+        const completedTodoList = $("#completedTodoList");
+        completedTodoList.empty();
         todos.forEach(todo => {
             console.log("Todo is completed? " + todo.getTitle() + " " + todo.isCompleted());
             // if(!todo.isCompleted()) {
                 const todoContainer = $(`<div class="todoContainer"></div>`);
-                todoContainer.appendTo(parentElement);
+                // todoContainer.appendTo(todoList);
 
                 const todoElement = $(`<div class="todo"></div>`);
                 todoElement.appendTo(todoContainer);
@@ -82,8 +84,20 @@ const DisplayController = (() => {
                 todoCheckbox.on("change", () => {
                     todo.toggleCompleted();
                     PubSub.publish(EventHub.topics.STORE_TODOS, todos);
+                    displayTodos("", project);
                     console.log("Completed? " + todo.isCompleted());
                 });
+
+                if(todo.isCompleted()) {
+                    console.log("appended to completed: " + todo.getTitle());
+                    // todoElement.appendTo(completedTodoContainer);
+                    todoContainer.appendTo(completedTodoList)
+                } else {
+                    console.log("Appended to incomplete: " + todo.getTitle());
+                    // todoElement.appendTo(todoContainer);
+                    todoContainer.appendTo(todoList)
+                }
+                
             // }
         });
     }
