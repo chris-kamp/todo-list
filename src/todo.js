@@ -2,13 +2,14 @@ import EventHub from "/src/eventHub.js";
 import format from 'date-fns/format';
 import ProjectManager from "./project";
 
-function Todo({title, description, dueDate, priority, project, loaded}) {
+function Todo({title, description, dueDate, priority, project, loaded, completed}) {
     title = title || "Untitled";
     description = description || "No description"; //For testing, default should otherwise be blank
     dueDate = dueDate || false;
     priority = priority || false;
     project = project || false; //All Todos should have a project, so need error handling for this
     loaded = loaded || false; //Whether loaded from storage. Relevant to whether the todo's parent project will be automatically selected.
+    completed = completed || false; //Whether todo has been completed
 
 
     function getTitle() {
@@ -47,6 +48,12 @@ function Todo({title, description, dueDate, priority, project, loaded}) {
     function isLoaded() {
         return loaded;
     }
+    function isCompleted() {
+        return completed;
+    }
+    function toggleCompleted() {
+        completed = !completed;
+    }
 
 
     //If todo title is a duplicate within the same project, throw error and return false
@@ -68,7 +75,9 @@ function Todo({title, description, dueDate, priority, project, loaded}) {
     
     //Log the todo details for debugging
     // console.log({title, description, dueDate, priority, project});
-    return {getTitle, setTitle, getDescription, setDescription, getDueDate, getDueDateFormatted, setDueDate, getPriority, setPriority, getProject, setProject, isLoaded};
+    // console.log(isCompleted());
+
+    return {getTitle, setTitle, getDescription, setDescription, getDueDate, getDueDateFormatted, setDueDate, getPriority, setPriority, getProject, setProject, isLoaded, isCompleted, toggleCompleted};
 }
 
 const TodoManager = (() => {

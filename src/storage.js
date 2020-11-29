@@ -78,13 +78,15 @@ function storeTodos(msg, todos) {
             const priority = todo.getPriority();
             const project = todo.getProject().getTitle();
             const loaded = true;
+            const completed = todo.isCompleted();
             const jsonTodo = {
                 title: title,
                 description: description,
                 dueDate: dueDate,
                 priority: priority,
                 project: project,
-                loaded: loaded
+                loaded: loaded,
+                completed: completed
             };
             todosArray.push(jsonTodo);
         });
@@ -106,7 +108,8 @@ function retrieveTodos(msg, data) {
                     dueDate: todo.dueDate,
                     priority: todo.priority,
                     project: ProjectManager.getProjectByTitle(todo.project),
-                    loaded: true
+                    loaded: true,
+                    completed: todo.completed
                 }
             );
         });
