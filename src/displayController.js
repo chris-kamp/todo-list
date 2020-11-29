@@ -71,7 +71,6 @@ const DisplayController = (() => {
                 if(event.target !== todoCheckbox[0]) {
                     todoBody.toggle();
                 }
-                
             });
         });
     }
