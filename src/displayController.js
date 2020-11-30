@@ -24,14 +24,17 @@ const DisplayController = (() => {
         showCompleted.on("click", () => {
             $("#completedTodoList").toggle();
             completedListHeading.toggle();
+            let completedShown;
             if(showCompleted.text() === "SHOW COMPLETED") {
                 showCompleted.text("HIDE COMPLETED");
                 showCompleted.addClass("negative");
+                completedShown = true;
             } else {
                 showCompleted.text("SHOW COMPLETED");                
                 showCompleted.removeClass("negative");
+                completedShown = false;
             }
-            
+            PubSub.publish(EventHub.topics.STORE_SHOW_COMPLETED, completedShown);
         });
 
         //Initialise module sections

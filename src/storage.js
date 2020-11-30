@@ -96,6 +96,7 @@ function storeTodos(msg, todos) {
 }
 
 function retrieveTodos(msg, data) {
+    retrieveShowCompleted();
     if(storageAvailable("localStorage") && localStorage.getItem("todos") !== null) {
         const jsonArray = localStorage.getItem("todos");
         const todosArray = JSON.parse(jsonArray);
@@ -117,6 +118,27 @@ function retrieveTodos(msg, data) {
     }
 }
 
+function storeShowCompleted(msg, completedShown) {
+    if(storageAvailable("localStorage")) {
+        console.log("Stored show completed: " + completedShown);
+        localStorage.setItem("completedShown", JSON.stringify(completedShown));
+    }
+}
+
+function retrieveShowCompleted() {
+    if(storageAvailable("localStorage") && localStorage.getItem("completedShown") !== null) {
+        const completedShown = JSON.parse(localStorage.getItem("completedShown"));
+        console.log("Retrived show completed: " + completedShown);
+        if(completedShown === false) {
+            const showCompleted =  $("#showCompleted");
+            showCompleted.text("SHOW COMPLETED");
+            showCompleted.removeClass("negative");
+            $("#completedTodoList").toggle();
+            $("#completedListHeading").toggle();  
+        }
+    }
+}
 
 
-export {storeProjects, retrieveProjects, storeTodos, retrieveTodos};
+
+export {storeProjects, retrieveProjects, storeTodos, retrieveTodos, storeShowCompleted};

@@ -2,7 +2,7 @@ import DisplayController from "./displayController";
 import ProjectManager from "/src/project.js";
 import TodoManager from "/src/todo.js";
 import {validateTodo} from "/src/validation.js";
-import {storeProjects, storeTodos, retrieveProjects, retrieveTodos} from "/src/storage.js";
+import {storeProjects, storeTodos, retrieveProjects, retrieveTodos, storeShowCompleted} from "/src/storage.js";
 
 
 const EventHub = (() => {
@@ -48,6 +48,9 @@ const EventHub = (() => {
 
     topics.RETRIEVE_PROJECTS = "Retrieve projects";
     tokens.retrieveProjects = PubSub.subscribe(topics.RETRIEVE_PROJECTS, retrieveProjects);
+
+    topics.STORE_SHOW_COMPLETED = "Store show completed";
+    tokens.storeShowCompleted = PubSub.subscribe(topics.STORE_SHOW_COMPLETED, storeShowCompleted);
     
     return {topics, tokens};
 })();
