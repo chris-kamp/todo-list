@@ -10,6 +10,8 @@ const DisplayController = (() => {
 
     //Initialise page elements and event listeners
     const initialise = () => {
+        const completedListHeading = $("#completedListHeading");
+        const showCompleted =  $("#showCompleted");
 
         //Click to pop up new todo creation box
         $("#newTodo").on("click", () => {
@@ -17,6 +19,19 @@ const DisplayController = (() => {
             if(!($("#createTodoPopup").length)) {
                 displayCreateTodoPopup();
             }
+        });
+
+        showCompleted.on("click", () => {
+            $("#completedTodoList").toggle();
+            completedListHeading.toggle();
+            if(showCompleted.text() === "SHOW COMPLETED") {
+                showCompleted.text("HIDE COMPLETED");
+                showCompleted.addClass("negative");
+            } else {
+                showCompleted.text("SHOW COMPLETED");                
+                showCompleted.removeClass("negative");
+            }
+            
         });
 
         //Initialise module sections

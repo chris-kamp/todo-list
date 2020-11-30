@@ -178,6 +178,14 @@ body {
     margin: 10px 0;
 }
 
+#showCompleted {
+    font-size: 15px;
+    border-radius: 5px;
+    border: solid 1px;
+    margin: 10px 0;
+    width: 160px;
+}
+
 .centeredDiv {
     text-align: center;
 }
