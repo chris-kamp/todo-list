@@ -5,9 +5,6 @@ import ProjectManager from "./project";
 import TodoManager from "./todo";
 import $ from "jquery";
 
-//For development purposes
-PubSub.immediateExceptions = true;
-
 DisplayController.initialise();
 ProjectManager.initialise();
 // TodoManager.initialise();
