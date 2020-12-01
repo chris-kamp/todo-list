@@ -72,10 +72,6 @@ function Todo({title, description, dueDate, priority, project, loaded, completed
         }
         return false;
     }
-    
-    //Log the todo details for debugging
-    // console.log({title, description, dueDate, priority, project});
-    // console.log(isCompleted());
 
     return {getTitle, setTitle, getDescription, setDescription, getDueDate, getDueDateFormatted, setDueDate, getPriority, setPriority, getProject, setProject, isLoaded, isCompleted, toggleCompleted};
 }
@@ -108,10 +104,6 @@ const TodoManager = (() => {
         }
         return todo;
     }
-
-    // function initialise() {
-    //     PubSub.publish(EventHub.topics.RETRIEVE_TODOS, "");
-    // }
 
     return {createTodo, getTodos};
 })();

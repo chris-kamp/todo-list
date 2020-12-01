@@ -130,14 +130,12 @@ function validateYear(year) {
 }
 
 //Validate the properties of a Todo
-//WIP: This should take the properties of a todo when creation request published, validate the date, validate anything else required, and publish success (along with the validated properties) or failure to trigger actual creation of the todo
 function validateTodo(msg, todoData) {
     todoData.dueDate = validateDate({dateStr: todoData.dueDate, allowPartial: false});
     if(todoData.dueDate === false) {
         PubSub.publish(EventHub.topics.TODO_CREATION_ERROR, "Please enter a valid due date (dd/mm/yyyy).");
         return false;
     } else {
-        //WIP: Allow for other formats
         PubSub.publish(EventHub.topics.TODO_VALIDATED, todoData);
     }
 }

@@ -50,9 +50,7 @@ const DisplayController = (() => {
         const completedTodoList = $("#completedTodoList");
         completedTodoList.empty();
         todos.forEach(todo => {
-            // if(!todo.isCompleted()) {
                 const todoContainer = $(`<div class="todoContainer"></div>`);
-                // todoContainer.appendTo(todoList);
 
                 const todoElement = $(`<div class="todo"></div>`);
                 todoElement.appendTo(todoContainer);
@@ -68,7 +66,6 @@ const DisplayController = (() => {
 
                 const todoCheckbox = $(`<input type="checkbox" class="todoCheckbox"></input>`);
                 todoCheckbox.appendTo(todoHeader);
-                //DEBUGGING
                 if(todo.isCompleted()) {
                     todoCheckbox.prop("checked", true);
                 }
@@ -105,10 +102,8 @@ const DisplayController = (() => {
                 });
 
                 if(todo.isCompleted()) {
-                    // todoElement.appendTo(completedTodoContainer);
                     todoContainer.appendTo(completedTodoList)
                 } else {
-                    // todoElement.appendTo(todoContainer);
                     todoContainer.appendTo(todoList)
                 }
                 

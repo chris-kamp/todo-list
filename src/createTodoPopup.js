@@ -72,8 +72,6 @@ function displayCreateTodoPopup() {
 
     //Get the properties of a todo to be created from inputs on the page
     const getTodoProperties = () => {
-        ///DEBUGGING
-        // console.log(todoDueDate.val());
         return {
             title: todoTitleInput.val(),
             description: todoDescription.val(),
@@ -86,9 +84,6 @@ function displayCreateTodoPopup() {
 
     createTodo.on("click", () => {
         PubSub.publish(EventHub.topics.TODO_CREATION_REQUESTED, getTodoProperties());
-        // todoDueDatePicker.remove();
-        // backdrop.remove();
-        // createTodoPopup.remove();
     });
 
     createTodoPopup.on("click", () => {

@@ -42,7 +42,6 @@ body {
 #mainContainer {
     background-color: rgb(153, 207, 153);
     min-height: 90vh;
-    /* background-color: brown; */
     display: flex;
     position: relative;
 }
@@ -183,10 +182,6 @@ body {
     margin: 10px auto;
 }
 
-#todoList {
-
-}
-
 #newTodo {
     font-size: 20px;
     border-radius: 5px;
@@ -287,10 +282,6 @@ body {
 
 .todoCheckbox {
     margin: 2px 0 0 0;
-}
-
-.todoBody {
-    
 }
 
 .priorityHigh {

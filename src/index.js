@@ -7,5 +7,4 @@ import $ from "jquery";
 
 DisplayController.initialise();
 ProjectManager.initialise();
-// TodoManager.initialise();
 

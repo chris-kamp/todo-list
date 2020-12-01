@@ -10,7 +10,6 @@ const EventHub = (() => {
     const tokens = {};
 
     topics.TODO_CREATION_REQUESTED = "Create todo";
-    // tokens.createTodo = PubSub.subscribe(topics.TODO_CREATION_REQUESTED, TodoManager.createTodo);
     tokens.createTodo = PubSub.subscribe(topics.TODO_CREATION_REQUESTED, validateTodo);
 
     topics.PROJECT_CREATION_REQUESTED = "Create project";
@@ -36,7 +35,6 @@ const EventHub = (() => {
     tokens.displayTodos = PubSub.subscribe(topics.PROJECT_SELECTED, DisplayController.displayTodos);
     tokens.selectProject = PubSub.subscribe(topics.PROJECT_SELECTED, ProjectManager.select);
 
-    //WIP - Delete?
     topics.STORE_PROJECTS = "Store projects";
     tokens.storeProjects = PubSub.subscribe(topics.STORE_PROJECTS, storeProjects);
 

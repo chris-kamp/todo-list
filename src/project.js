@@ -66,8 +66,6 @@ function Project({title, todos, selected}) {
         return title;
     }
 
-    //Log the project details for debugging
-    // console.log({title, todos});
     return {getTitle, setTitle, getTodos, createTodo, setDisplayElement, getDisplayElement, select, deselect, isSelected};
 }
 
@@ -127,12 +125,6 @@ const ProjectManager = (() => {
     //Initialise a default project for uncategorised todos
     function initialise() {
         PubSub.publish(EventHub.topics.RETRIEVE_PROJECTS, "");
-        // if(projects.length === 0) {
-        //     PubSub.publish(EventHub.topics.PROJECT_CREATION_REQUESTED, {
-        //         title: "Uncategorised",
-        //         selected: true
-        //     });
-        // }
     }
     
     return {createProject, getProjects, initialise, getProjectByTitle, pushTodoToProject, select, setProjects};
