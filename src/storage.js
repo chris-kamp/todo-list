@@ -120,7 +120,6 @@ function retrieveTodos(msg, data) {
 
 function storeShowCompleted(msg, completedShown) {
     if(storageAvailable("localStorage")) {
-        console.log("Stored show completed: " + completedShown);
         localStorage.setItem("completedShown", JSON.stringify(completedShown));
     }
 }
@@ -128,7 +127,6 @@ function storeShowCompleted(msg, completedShown) {
 function retrieveShowCompleted() {
     if(storageAvailable("localStorage") && localStorage.getItem("completedShown") !== null) {
         const completedShown = JSON.parse(localStorage.getItem("completedShown"));
-        console.log("Retrived show completed: " + completedShown);
         if(completedShown === false) {
             const showCompleted =  $("#showCompleted");
             showCompleted.text("SHOW COMPLETED");

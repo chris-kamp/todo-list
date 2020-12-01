@@ -50,7 +50,6 @@ const DisplayController = (() => {
         const completedTodoList = $("#completedTodoList");
         completedTodoList.empty();
         todos.forEach(todo => {
-            console.log("Todo is completed? " + todo.getTitle() + " " + todo.isCompleted());
             // if(!todo.isCompleted()) {
                 const todoContainer = $(`<div class="todoContainer"></div>`);
                 // todoContainer.appendTo(todoList);
@@ -103,15 +102,12 @@ const DisplayController = (() => {
                     todo.toggleCompleted();
                     PubSub.publish(EventHub.topics.STORE_TODOS, todos);
                     displayTodos("", project);
-                    console.log("Completed? " + todo.isCompleted());
                 });
 
                 if(todo.isCompleted()) {
-                    console.log("appended to completed: " + todo.getTitle());
                     // todoElement.appendTo(completedTodoContainer);
                     todoContainer.appendTo(completedTodoList)
                 } else {
-                    console.log("Appended to incomplete: " + todo.getTitle());
                     // todoElement.appendTo(todoContainer);
                     todoContainer.appendTo(todoList)
                 }
