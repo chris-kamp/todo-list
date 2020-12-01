@@ -6,6 +6,7 @@ import format from 'date-fns/format';
 
 let selectedProjectTitle;
 
+//Determine whether storage available
 function storageAvailable(type) {
     let storage;
     try {
@@ -25,6 +26,7 @@ function storageAvailable(type) {
     }
 }
 
+//Store the state of the project list
 function storeProjects(msg, projects) {
     if(storageAvailable("localStorage")) {
         const projectsArray = [];
@@ -42,6 +44,8 @@ function storeProjects(msg, projects) {
     }
 }
 
+//Retrieve projects from storage and display
+
 function retrieveProjects(msg, data) {
     if(storageAvailable("localStorage") && localStorage.getItem("projects") !== null) {
         
@@ -56,7 +60,6 @@ function retrieveProjects(msg, data) {
         });
             
         //Retrieve todos once project retrieval finished
-        //NOTE: Not synchronous, but seems to work   
         PubSub.publish(EventHub.topics.RETRIEVE_TODOS, "");
 
 
@@ -68,6 +71,7 @@ function retrieveProjects(msg, data) {
     }
 }
 
+//Store the state of the todos list
 function storeTodos(msg, todos) {
     if(storageAvailable("localStorage")) {
         const todosArray = [];
@@ -95,6 +99,7 @@ function storeTodos(msg, todos) {
     }
 }
 
+//Retrieve stored todos
 function retrieveTodos(msg, data) {
     retrieveShowCompleted();
     if(storageAvailable("localStorage") && localStorage.getItem("todos") !== null) {
@@ -105,7 +110,6 @@ function retrieveTodos(msg, data) {
                 {
                     title: todo.title,
                     description: todo.description,
-                    // description: "fake",
                     dueDate: todo.dueDate,
                     priority: todo.priority,
                     project: ProjectManager.getProjectByTitle(todo.project),
