@@ -2,6 +2,7 @@ import $ from "jquery";
 import displaySidebar from "/src/sidebar.js";
 import displayCreateTodoPopup from "/src/createTodoPopup.js";
 import EventHub from "/src/eventHub.js";
+import TodoManager from "/src/todo.js";
 
 const DisplayController = (() => {
 
@@ -97,7 +98,7 @@ const DisplayController = (() => {
                 //Checkbox completes or un-completes todo when clicked
                 todoCheckbox.on("change", () => {
                     todo.toggleCompleted();
-                    PubSub.publish(EventHub.topics.STORE_TODOS, todos);
+                    PubSub.publish(EventHub.topics.STORE_TODOS, TodoManager.getTodos());
                     displayTodos("", project);
                 });
 

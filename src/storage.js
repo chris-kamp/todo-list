@@ -123,6 +123,7 @@ function retrieveTodos(msg, data) {
 }
 
 function storeShowCompleted(msg, completedShown) {
+    console.log("Test");
     if(storageAvailable("localStorage")) {
         localStorage.setItem("completedShown", JSON.stringify(completedShown));
     }
